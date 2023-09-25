@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/devel/setup.sh

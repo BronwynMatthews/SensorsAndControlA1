@@ -1,0 +1,2 @@
+a1_sensors
+-DCATKIN_DEVEL_PREFIX=/home/jack/SensorsAndControlA1/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/jack/SensorsAndControlA1/catkin_ws/install -G Unix Makefiles
