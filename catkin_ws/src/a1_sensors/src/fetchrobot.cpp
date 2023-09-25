@@ -6,5 +6,5 @@ FetchRobotController::FetchRobotController(ros::NodeHandle nh) : nh_(nh) {
 }
 
 void FetchRobotController::separateThread() {
-    std::cout << "Hello World" << std::endl;
+    std::cout << "Hello World 2" << std::endl;
 }
