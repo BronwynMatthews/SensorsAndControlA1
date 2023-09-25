@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: a1_sensors
-Description: Description of a1_sensors
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
