@@ -5,4 +5,8 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
+subdirs("fetch_gazebo/fetch_gazebo_demo")
+subdirs("fetch_gazebo/fetch_simulation")
+subdirs("fetch_gazebo/fetchit_challenge")
 subdirs("a1_sensors")
+subdirs("fetch_gazebo/fetch_gazebo")
