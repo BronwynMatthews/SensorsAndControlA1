@@ -1,0 +1,50 @@
+#include <iostream>
+#include "fetchrobot.h"
+#include "ros/ros.h"
+#include <sensor_msgs/JointState.h>
+#include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/planning_interface/planning_interface.h>
+#include <moveit_msgs/DisplayRobotState.h>
+#include <moveit_msgs/DisplayTrajectory.h>
+#include <moveit_msgs/AttachedCollisionObject.h>
+#include <moveit_msgs/CollisionObject.h>
+
+FetchRobotController::FetchRobotController(ros::NodeHandle nh) : nh_(nh) {
+    ros::Subscriber joint_state_sub = nh_.subscribe("/joint_states", 1, &FetchRobotController::jointStateCallback, this);
+}
+
+void FetchRobotController::separateThread() {
+    std::cout << "Hello World 2" << std::endl;
+
+    moveit::planning_interface::MoveGroupInterface move_arm("arm");
+
+    geometry_msgs::Pose target_pose;
+    target_pose.position.x = 0.4;
+    target_pose.position.y = 0.2;
+    target_pose.position.z = 0.4;
+    target_pose.orientation.w = 1.0;
+
+    move_arm.setPoseTarget(target_pose);
+
+    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+    bool success = (move_arm.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+    if (success)
+    {
+        move_arm.execute(my_plan);
+        ROS_INFO("Movement completed.");
+    }
+    else
+    {
+        ROS_ERROR("Planning failed.");
+    }
+}
+
+void FetchRobotController::jointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
+{
+    // Process joint state data, e.g., print joint angles.
+    for (size_t i = 0; i < msg->position.size(); ++i)
+    {
+        ROS_INFO("Joint %zu: %f", i, msg->position[i]);
+    }
+}

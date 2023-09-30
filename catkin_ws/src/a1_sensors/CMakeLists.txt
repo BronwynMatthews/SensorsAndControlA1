@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
+  moveit_core
+  moveit_ros_planning_interface
+  Eigen3
 )
 
 ## System dependencies are found with CMake's conventions
@@ -118,7 +121,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-  ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -148,7 +151,7 @@ add_executable(robotmain src/main.cpp src/fetchrobot.cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(robotmain
-   ${catkin_LIBRARIES}
+   ${catkin_LIBRARIES} ${MOVEIT_LIBRARIES} ${OCTOMAP_LIBRARIES}
  )
 
 #############

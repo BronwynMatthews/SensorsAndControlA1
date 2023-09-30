@@ -21,6 +21,7 @@ a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/inclu
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_event.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_forward.h
+a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_operations.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_traits.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/names.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/node_handle.h
@@ -58,6 +59,8 @@ a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/inclu
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
+a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 
@@ -81,6 +84,7 @@ a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_event.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_forward.h
+a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_operations.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_traits.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/names.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/node_handle.h
@@ -118,6 +122,8 @@ a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
+a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 

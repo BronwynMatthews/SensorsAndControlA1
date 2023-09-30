@@ -11,10 +11,16 @@ iostream
 -
 fetchrobot.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.h
+ros/ros.h
+/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/ros/ros.h
+sensor_msgs/JointState.h
+-
 
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.h
 ros/ros.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/ros/ros.h
+sensor_msgs/JointState.h
+-
 
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/main.cpp
 ros/ros.h
@@ -232,6 +238,10 @@ boost/make_shared.hpp
 cstddef
 -
 memory
+-
+
+/opt/ros/melodic/include/ros/message_operations.h
+ostream
 -
 
 /opt/ros/melodic/include/ros/message_traits.h
@@ -665,6 +675,40 @@ ros/forwards.h
 /opt/ros/melodic/include/ros/ros/forwards.h
 
 /opt/ros/melodic/include/rosconsole/macros_generated.h
+
+/opt/ros/melodic/include/sensor_msgs/JointState.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/Header.h
+-
+
+/opt/ros/melodic/include/std_msgs/Header.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
 
 /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 ros/macros.h

@@ -21,6 +21,7 @@ CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/mast
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_event.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_forward.h
+CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_operations.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/message_traits.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/names.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/node_handle.h
@@ -58,6 +59,8 @@ CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/type
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
+CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 
@@ -81,6 +84,7 @@ CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/master.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_event.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_forward.h
+CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_operations.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/message_traits.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/names.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/node_handle.h
@@ -118,6 +122,8 @@ CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/types.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
+CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 CMakeFiles/robotmain.dir/src/main.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h
 

@@ -80,17 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -102,16 +91,16 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
 
-.PHONY : edit_cache/fast
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -122,6 +111,17 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # Special rule for the target install
 install: preinstall
@@ -168,19 +168,259 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_py: a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
+moveit_ros_manipulation_gencfg: a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_py
+.PHONY : moveit_ros_manipulation_gencfg
 
 # fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
+moveit_ros_manipulation_gencfg/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build.make a1_sensors/CMakeFiles/moveit_ros_manipulation_gencfg.dir/build
+.PHONY : moveit_ros_manipulation_gencfg/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/rule
+.PHONY : a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+octomap_msgs_generate_messages_py: a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/rule
+
+.PHONY : octomap_msgs_generate_messages_py
+
+# fast build rule for target.
+octomap_msgs_generate_messages_py/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/octomap_msgs_generate_messages_py.dir/build
+.PHONY : octomap_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/rule
+.PHONY : a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+octomap_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : octomap_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+octomap_msgs_generate_messages_nodejs/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/build
+.PHONY : octomap_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+octomap_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : octomap_msgs_generate_messages_lisp
+
+# fast build rule for target.
+octomap_msgs_generate_messages_lisp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/octomap_msgs_generate_messages_lisp.dir/build
+.PHONY : octomap_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/rule
+.PHONY : a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+octomap_msgs_generate_messages_eus: a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/rule
+
+.PHONY : octomap_msgs_generate_messages_eus
+
+# fast build rule for target.
+octomap_msgs_generate_messages_eus/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/octomap_msgs_generate_messages_eus.dir/build
+.PHONY : octomap_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/rule
+.PHONY : a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+object_recognition_msgs_generate_messages_py: a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/rule
+
+.PHONY : object_recognition_msgs_generate_messages_py
+
+# fast build rule for target.
+object_recognition_msgs_generate_messages_py/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/build
+.PHONY : object_recognition_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/rule
+.PHONY : a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+object_recognition_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : object_recognition_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+object_recognition_msgs_generate_messages_nodejs/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_nodejs.dir/build
+.PHONY : object_recognition_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+object_recognition_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : object_recognition_msgs_generate_messages_lisp
+
+# fast build rule for target.
+object_recognition_msgs_generate_messages_lisp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir/build
+.PHONY : object_recognition_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/rule
+.PHONY : a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+object_recognition_msgs_generate_messages_eus: a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/rule
+
+.PHONY : object_recognition_msgs_generate_messages_eus
+
+# fast build rule for target.
+object_recognition_msgs_generate_messages_eus/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_eus.dir/build
+.PHONY : object_recognition_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+visualization_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : visualization_msgs_generate_messages_cpp
+
+# fast build rule for target.
+visualization_msgs_generate_messages_cpp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build
+.PHONY : visualization_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/rule
+.PHONY : a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+shape_msgs_generate_messages_py: a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/rule
+
+.PHONY : shape_msgs_generate_messages_py
+
+# fast build rule for target.
+shape_msgs_generate_messages_py/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/shape_msgs_generate_messages_py.dir/build
+.PHONY : shape_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/rule
+.PHONY : a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+shape_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : shape_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+shape_msgs_generate_messages_nodejs/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/shape_msgs_generate_messages_nodejs.dir/build
+.PHONY : shape_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+shape_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : shape_msgs_generate_messages_lisp
+
+# fast build rule for target.
+shape_msgs_generate_messages_lisp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/shape_msgs_generate_messages_lisp.dir/build
+.PHONY : shape_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+moveit_msgs_generate_messages_eus: a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/rule
+
+.PHONY : moveit_msgs_generate_messages_eus
+
+# fast build rule for target.
+moveit_msgs_generate_messages_eus/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/moveit_msgs_generate_messages_eus.dir/build
+.PHONY : moveit_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/rule
+
+# Convenience name for target.
+moveit_ros_planning_gencfg: a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/rule
+
+.PHONY : moveit_ros_planning_gencfg
+
+# fast build rule for target.
+moveit_ros_planning_gencfg/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/build.make a1_sensors/CMakeFiles/moveit_ros_planning_gencfg.dir/build
+.PHONY : moveit_ros_planning_gencfg/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/rule
+.PHONY : a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+shape_msgs_generate_messages_eus: a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/rule
+
+.PHONY : shape_msgs_generate_messages_eus
+
+# fast build rule for target.
+shape_msgs_generate_messages_eus/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/shape_msgs_generate_messages_eus.dir/build
+.PHONY : shape_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+shape_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : shape_msgs_generate_messages_cpp
+
+# fast build rule for target.
+shape_msgs_generate_messages_cpp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/shape_msgs_generate_messages_cpp.dir/build
+.PHONY : shape_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
 a1_sensors/CMakeFiles/robotmain.dir/rule:
@@ -198,139 +438,154 @@ robotmain/fast:
 .PHONY : robotmain/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-.PHONY : a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
+.PHONY : a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+visualization_msgs_generate_messages_eus: a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_nodejs
+.PHONY : visualization_msgs_generate_messages_eus
 
 # fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
+visualization_msgs_generate_messages_eus/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build
+.PHONY : visualization_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+visualization_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_cpp
+.PHONY : visualization_msgs_generate_messages_lisp
 
 # fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
+visualization_msgs_generate_messages_lisp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
+.PHONY : visualization_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+moveit_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_cpp
+.PHONY : moveit_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
+moveit_msgs_generate_messages_nodejs/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/moveit_msgs_generate_messages_nodejs.dir/build
+.PHONY : moveit_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
+.PHONY : a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_eus: a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+visualization_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_eus
+.PHONY : visualization_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
+visualization_msgs_generate_messages_nodejs/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
+.PHONY : visualization_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+octomap_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_lisp
+.PHONY : octomap_msgs_generate_messages_cpp
 
 # fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
+octomap_msgs_generate_messages_cpp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/octomap_msgs_generate_messages_cpp.dir/build
+.PHONY : octomap_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
+.PHONY : a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_py: a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+visualization_msgs_generate_messages_py: a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_py
+.PHONY : visualization_msgs_generate_messages_py
 
 # fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
+visualization_msgs_generate_messages_py/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
+.PHONY : visualization_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+moveit_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_lisp
+.PHONY : moveit_msgs_generate_messages_cpp
 
 # fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
+moveit_msgs_generate_messages_cpp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/moveit_msgs_generate_messages_cpp.dir/build
+.PHONY : moveit_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_nodejs: a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+moveit_msgs_generate_messages_lisp: a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_nodejs
+.PHONY : moveit_msgs_generate_messages_lisp
 
 # fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make a1_sensors/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
+moveit_msgs_generate_messages_lisp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/build.make a1_sensors/CMakeFiles/moveit_msgs_generate_messages_lisp.dir/build
+.PHONY : moveit_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
-.PHONY : a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/rule
+.PHONY : a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-geometry_msgs_generate_messages_eus: a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+moveit_msgs_generate_messages_py: a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/rule
 
-.PHONY : geometry_msgs_generate_messages_eus
+.PHONY : moveit_msgs_generate_messages_py
 
 # fast build rule for target.
-geometry_msgs_generate_messages_eus/fast:
-	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make a1_sensors/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
-.PHONY : geometry_msgs_generate_messages_eus/fast
+moveit_msgs_generate_messages_py/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/build.make a1_sensors/CMakeFiles/moveit_msgs_generate_messages_py.dir/build
+.PHONY : moveit_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/rule:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/rule
+.PHONY : a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+object_recognition_msgs_generate_messages_cpp: a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : object_recognition_msgs_generate_messages_cpp
+
+# fast build rule for target.
+object_recognition_msgs_generate_messages_cpp/fast:
+	cd /home/jack/SensorsAndControlA1/catkin_ws/build && $(MAKE) -f a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/build.make a1_sensors/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir/build
+.PHONY : object_recognition_msgs_generate_messages_cpp/fast
 
 src/fetchrobot.o: src/fetchrobot.cpp.o
 
@@ -394,22 +649,39 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... robotmain"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... rebuild_cache"
-	@echo "... geometry_msgs_generate_messages_py"
-	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... test"
-	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... edit_cache"
-	@echo "... geometry_msgs_generate_messages_eus"
+	@echo "... moveit_ros_manipulation_gencfg"
+	@echo "... octomap_msgs_generate_messages_py"
+	@echo "... octomap_msgs_generate_messages_nodejs"
+	@echo "... octomap_msgs_generate_messages_lisp"
+	@echo "... rebuild_cache"
+	@echo "... octomap_msgs_generate_messages_eus"
+	@echo "... object_recognition_msgs_generate_messages_py"
+	@echo "... object_recognition_msgs_generate_messages_nodejs"
+	@echo "... object_recognition_msgs_generate_messages_lisp"
+	@echo "... object_recognition_msgs_generate_messages_eus"
+	@echo "... visualization_msgs_generate_messages_cpp"
+	@echo "... shape_msgs_generate_messages_py"
+	@echo "... shape_msgs_generate_messages_nodejs"
+	@echo "... shape_msgs_generate_messages_lisp"
+	@echo "... moveit_msgs_generate_messages_eus"
+	@echo "... moveit_ros_planning_gencfg"
+	@echo "... shape_msgs_generate_messages_eus"
+	@echo "... shape_msgs_generate_messages_cpp"
+	@echo "... robotmain"
+	@echo "... visualization_msgs_generate_messages_eus"
 	@echo "... list_install_components"
+	@echo "... visualization_msgs_generate_messages_lisp"
+	@echo "... moveit_msgs_generate_messages_nodejs"
+	@echo "... visualization_msgs_generate_messages_nodejs"
+	@echo "... octomap_msgs_generate_messages_cpp"
+	@echo "... visualization_msgs_generate_messages_py"
+	@echo "... edit_cache"
+	@echo "... moveit_msgs_generate_messages_cpp"
+	@echo "... moveit_msgs_generate_messages_lisp"
 	@echo "... install"
+	@echo "... moveit_msgs_generate_messages_py"
+	@echo "... object_recognition_msgs_generate_messages_cpp"
 	@echo "... src/fetchrobot.o"
 	@echo "... src/fetchrobot.i"
 	@echo "... src/fetchrobot.s"

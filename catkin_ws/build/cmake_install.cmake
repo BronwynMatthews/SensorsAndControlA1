@@ -134,8 +134,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_gazebo_demo/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_simulation/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetchit_challenge/cmake_install.cmake")
-  include("/home/jack/SensorsAndControlA1/catkin_ws/build/a1_sensors/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_gazebo/cmake_install.cmake")
+  include("/home/jack/SensorsAndControlA1/catkin_ws/build/a1_sensors/cmake_install.cmake")
 
 endif()
 
