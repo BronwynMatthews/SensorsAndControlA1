@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/gtest/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_gazebo_demo/cmake_install.cmake")
+  include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_movit_config/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_simulation/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetchit_challenge/cmake_install.cmake")
   include("/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_gazebo/cmake_install.cmake")

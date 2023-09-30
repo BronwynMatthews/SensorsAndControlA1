@@ -27,6 +27,7 @@ void FetchRobotController::separateThread() {
         joint_command.position[0] = -1.7;
 
         joint_command.position[1] = 1.5;
+        
 
 
         // Publish the joint position command

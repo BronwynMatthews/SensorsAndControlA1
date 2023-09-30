@@ -455,6 +455,24 @@ clean: fetch_gazebo/fetch_gazebo_demo/CMakeFiles/_catkin_empty_exported_target.d
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory fetch_movit_config
+
+# Convenience name for "all" pass in the directory.
+fetch_movit_config/all:
+
+.PHONY : fetch_movit_config/all
+
+# Convenience name for "clean" pass in the directory.
+fetch_movit_config/clean:
+
+.PHONY : fetch_movit_config/clean
+
+# Convenience name for "preinstall" pass in the directory.
+fetch_movit_config/preinstall:
+
+.PHONY : fetch_movit_config/preinstall
+
+#=============================================================================
 # Directory level rules for directory fetch_gazebo/fetch_simulation
 
 # Convenience name for "all" pass in the directory.

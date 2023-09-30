@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: fetch_gazebo
+    relative_path: robots/fetch.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/fetch.srdf
+  CONFIG:
+    author_name: Jack Colusso
+    author_email: jack.colusso@student.uts.edu.au
+    generated_timestamp: 1696091364
