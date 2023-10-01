@@ -6,29 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp
+/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp
 iostream
 -
-fetchrobot.h
-/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.h
+arm_controller.h
+/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.h
 ros/ros.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/ros/ros.h
 sensor_msgs/JointState.h
 -
+moveit/move_group_interface/move_group_interface.h
+-
 
-/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.h
+/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.h
 ros/ros.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/ros/ros.h
 sensor_msgs/JointState.h
+-
+moveit/move_group_interface/move_group_interface.h
 -
 
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/main.cpp
 ros/ros.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/ros/ros.h
-fetchrobot.h
-/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.h
-moveit/move_group_interface/move_group_interface.h
--
+arm_controller.h
+/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.h
 thread
 -
 

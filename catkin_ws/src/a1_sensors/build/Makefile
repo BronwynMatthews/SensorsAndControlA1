@@ -1441,32 +1441,32 @@ gtest/fast:
 	$(MAKE) -f gtest/googlemock/gtest/CMakeFiles/gtest.dir/build.make gtest/googlemock/gtest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
-src/fetchrobot.o: src/fetchrobot.cpp.o
+src/arm_controller.o: src/arm_controller.cpp.o
 
-.PHONY : src/fetchrobot.o
+.PHONY : src/arm_controller.o
 
 # target to build an object file
-src/fetchrobot.cpp.o:
-	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o
-.PHONY : src/fetchrobot.cpp.o
+src/arm_controller.cpp.o:
+	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/arm_controller.cpp.o
+.PHONY : src/arm_controller.cpp.o
 
-src/fetchrobot.i: src/fetchrobot.cpp.i
+src/arm_controller.i: src/arm_controller.cpp.i
 
-.PHONY : src/fetchrobot.i
+.PHONY : src/arm_controller.i
 
 # target to preprocess a source file
-src/fetchrobot.cpp.i:
-	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/fetchrobot.cpp.i
-.PHONY : src/fetchrobot.cpp.i
+src/arm_controller.cpp.i:
+	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/arm_controller.cpp.i
+.PHONY : src/arm_controller.cpp.i
 
-src/fetchrobot.s: src/fetchrobot.cpp.s
+src/arm_controller.s: src/arm_controller.cpp.s
 
-.PHONY : src/fetchrobot.s
+.PHONY : src/arm_controller.s
 
 # target to generate assembly for a file
-src/fetchrobot.cpp.s:
-	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/fetchrobot.cpp.s
-.PHONY : src/fetchrobot.cpp.s
+src/arm_controller.cpp.s:
+	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/arm_controller.cpp.s
+.PHONY : src/arm_controller.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -1606,9 +1606,9 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... src/fetchrobot.o"
-	@echo "... src/fetchrobot.i"
-	@echo "... src/fetchrobot.s"
+	@echo "... src/arm_controller.o"
+	@echo "... src/arm_controller.i"
+	@echo "... src/arm_controller.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

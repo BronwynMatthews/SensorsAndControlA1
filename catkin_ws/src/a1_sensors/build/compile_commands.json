@@ -6,8 +6,8 @@
 },
 {
   "directory": "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build",
-  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"a1_sensors\\\" -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/opt/ros/melodic/share/orocos_kdl/cmake/../../../include -I/usr/include/eigen3  -g   -o CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o -c /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp",
-  "file": "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp"
+  "command": "/usr/bin/c++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"a1_sensors\\\" -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/opt/ros/melodic/share/orocos_kdl/cmake/../../../include -I/usr/include/eigen3  -g   -o CMakeFiles/robotmain.dir/src/arm_controller.cpp.o -c /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp",
+  "file": "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp"
 },
 {
   "directory": "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/gtest/googlemock",

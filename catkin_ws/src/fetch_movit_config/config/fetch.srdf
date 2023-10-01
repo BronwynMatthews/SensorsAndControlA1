@@ -17,6 +17,12 @@
         <joint name="forearm_roll_joint" />
         <joint name="wrist_flex_joint" />
         <joint name="wrist_roll_joint" />
+  <!-- Add max_planning_attempts here -->
+    <planner_configuration>
+        <group name="arm" default_planner_config="SBLkConfigDefault" group_name="arm">
+            <SBLkConfigDefault name="SBLkConfigDefault" max_planning_time="5.0" max_planning_attempts="5"/>
+        </group>
+    </planner_configuration>
     </group>
     <group name="gripper">
         <joint name="l_gripper_finger_joint" />

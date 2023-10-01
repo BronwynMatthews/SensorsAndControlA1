@@ -81,40 +81,40 @@ CMakeFiles/robotmain.dir/src/main.cpp.o.provides: CMakeFiles/robotmain.dir/src/m
 CMakeFiles/robotmain.dir/src/main.cpp.o.provides.build: CMakeFiles/robotmain.dir/src/main.cpp.o
 
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: CMakeFiles/robotmain.dir/flags.make
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o: ../src/fetchrobot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o -c /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: CMakeFiles/robotmain.dir/flags.make
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: ../src/arm_controller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/robotmain.dir/src/arm_controller.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/robotmain.dir/src/arm_controller.cpp.o -c /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/robotmain.dir/src/fetchrobot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp > CMakeFiles/robotmain.dir/src/fetchrobot.cpp.i
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/robotmain.dir/src/arm_controller.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp > CMakeFiles/robotmain.dir/src/arm_controller.cpp.i
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robotmain.dir/src/fetchrobot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp -o CMakeFiles/robotmain.dir/src/fetchrobot.cpp.s
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/robotmain.dir/src/arm_controller.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp -o CMakeFiles/robotmain.dir/src/arm_controller.cpp.s
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.requires:
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.requires:
 
-.PHONY : CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.requires
+.PHONY : CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.requires
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.provides: CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.requires
-	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.provides.build
-.PHONY : CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.provides
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.provides: CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.requires
+	$(MAKE) -f CMakeFiles/robotmain.dir/build.make CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.provides.build
+.PHONY : CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.provides
 
-CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.provides.build: CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.provides.build: CMakeFiles/robotmain.dir/src/arm_controller.cpp.o
 
 
 # Object files for target robotmain
 robotmain_OBJECTS = \
 "CMakeFiles/robotmain.dir/src/main.cpp.o" \
-"CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o"
+"CMakeFiles/robotmain.dir/src/arm_controller.cpp.o"
 
 # External object files for target robotmain
 robotmain_EXTERNAL_OBJECTS =
 
 devel/lib/a1_sensors/robotmain: CMakeFiles/robotmain.dir/src/main.cpp.o
-devel/lib/a1_sensors/robotmain: CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o
+devel/lib/a1_sensors/robotmain: CMakeFiles/robotmain.dir/src/arm_controller.cpp.o
 devel/lib/a1_sensors/robotmain: CMakeFiles/robotmain.dir/build.make
 devel/lib/a1_sensors/robotmain: /opt/ros/melodic/lib/libmoveit_common_planning_interface_objects.so
 devel/lib/a1_sensors/robotmain: /opt/ros/melodic/lib/libmoveit_planning_scene_interface.so
@@ -217,7 +217,7 @@ CMakeFiles/robotmain.dir/build: devel/lib/a1_sensors/robotmain
 .PHONY : CMakeFiles/robotmain.dir/build
 
 CMakeFiles/robotmain.dir/requires: CMakeFiles/robotmain.dir/src/main.cpp.o.requires
-CMakeFiles/robotmain.dir/requires: CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o.requires
+CMakeFiles/robotmain.dir/requires: CMakeFiles/robotmain.dir/src/arm_controller.cpp.o.requires
 
 .PHONY : CMakeFiles/robotmain.dir/requires
 

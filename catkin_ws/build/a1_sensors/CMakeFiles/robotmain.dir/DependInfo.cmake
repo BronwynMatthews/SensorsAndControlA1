@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/fetchrobot.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/build/a1_sensors/CMakeFiles/robotmain.dir/src/fetchrobot.cpp.o"
+  "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/build/a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o"
   "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/main.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/build/a1_sensors/CMakeFiles/robotmain.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
