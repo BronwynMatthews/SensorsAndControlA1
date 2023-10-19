@@ -6,21 +6,23 @@
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/LaserScan.h>
 
-// Constructor
-laserScan::laserScan(sensor_msgs::LaserScan laserScan) : laserScan_(laserScan)
-{
 
+// Constructor
+laserScan::LaserScan(sensor_msgs::LaserScan laserScan) : laserScan_(laserScan)
+{
+    // laser subsriber to be taken out and put into other class
+    laser_sub_ = nh_.subscribe("/base_scan_raw", 1024, &laserScan::laserCallBack, this);
 }
 
-void LaserProcessing::newScan(sensor_msgs::LaserScan laserScan)
+void LaserScan::newScan(sensor_msgs::LaserScan laserScan)
 {
     laserScan_ = laserScan;
 }
 
 // Function to detect items 
-bool laserScan::detectItem(sensor_msgs::LaserScan::ConstPtr laserScan)
+bool LaserScan::detectItem(sensor_msgs::LaserScan::ConstPtr laserScan)
 {
-    double laser_reading = laserScan->range_max;                                  // 
+    double laser_reading = laserScan->range_max;                                 
     int range_start = (laserScan->ranges.size() / 2) - (laserScanField / 2); // 
     int range_end = (laserScan->ranges.size() / 2) + (laserScanField / 2);   //
     for (unsigned int i = range_start; i <= range_end; i++)

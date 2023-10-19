@@ -6,7 +6,7 @@
 #include <sensor_msgs/JointState.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 
-class laserScan
+class LaserScan
 {
 public:
     
@@ -15,12 +15,17 @@ public:
 private:
     ros::NodeHandle nh_;
 
-    
+
     sensor_msgs::LaserScan laserScan_;
     LaserProcessing(sensor_msgs::LaserScan laserScan);
     
     static const int laserScanField = 130;
     static const double laserScanLimit = 0.40;4geometry_msgs::Point detectObject(nav_msgs::Odometry odom, objectType type);
+
+
+    LaserScan::LaserScan(sensor_msgs::LaserScan laserScan) : laserScan_(laserScan) {
+    laser_sub_ = nh_.subscribe("/base_scan_raw", 1024, &LaserScan::laserCallBack, this);
+}
 };
 
 
