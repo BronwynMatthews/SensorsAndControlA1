@@ -1,6 +1,7 @@
 #include "head_camera.h"
 #include <iostream>
 
+
 struct ObjectInfo {
     cv::Point2d location;
     pcl::PointXYZ depthLocation;
@@ -8,12 +9,31 @@ struct ObjectInfo {
     std::string shape;
 };
 
+// constructor
 HeadCamera::HeadCamera() {
     sub_rgb.subscribe(nh_, "/head_camera/rgb/image_raw", 1);
     sub_depth.subscribe(nh_, "/head_camera/depth_registered/points", 1);
 }
 
+// function to call from other class to scan fore object, prototyping stage until used for testing
+ObjectInfo HeadCamera::scanForObject() {
+    newDataAvailable_ = false;
+
+      // Wait until new data is available
+    while (!newDataAvailable_) {
+        ros::spinOnce();  // Let ROS process callbacks
+    }
+
+    return lastDetectedObject_;
+}
+
+// callback for camera readings
 void HeadCamera::callback(const ImageConstPtr& msg_rgb, const PointCloud2ConstPtr& msg_depth) {
+
+    // used for retaining old data
+    lastDetectedObject_.location = detectColorAndShape(msg_rgb, lastDetectedObject_.color, lastDetectedObject_.shape);
+    lastDetectedObject_.depthLocation = getDepth(msg_depth, lastDetectedObject_.location);
+
     ObjectInfo detectedObject;
     
     detectedObject.location = detectColorAndShape(msg_rgb, detectedObject.color, detectedObject.shape);
@@ -35,7 +55,10 @@ void HeadCamera::callback(const ImageConstPtr& msg_rgb, const PointCloud2ConstPt
               << " and 3D location: (" << target.point.x << ", " << target.point.y << ", " << target.point.z << ")\n";
 }
 
-cv::Point HeadCamera::detectColorAndShape(const ImageConstPtr& msg_rgb, std::string& color, std::string& shape) {
+// if below function doesn't work, make vector of points and use vector of points to make segments,
+// make a shortest seg function from a vec of vecs as cylinder and cube should form smallest number of points in vec
+// also make sure to have minimum accpetance as random points may be included in the segments being formed from the scan 
+cv::Point HeadCamera::detectColourAndShape(const ImageConstPtr& msg_rgb, std::string& color, std::string& shape) {
     cv_bridge::CvImagePtr cv_ptr;
     cv::Mat image, hsv, mask;
 
@@ -44,12 +67,12 @@ cv::Point HeadCamera::detectColorAndShape(const ImageConstPtr& msg_rgb, std::str
         image = cv_ptr->image;
         cv::cvtColor(image, hsv, CV_BGR2HSV);
         
-        // Red Colour
+        // Red 
         cv::inRange(hsv, cv::Scalar(0, 120, 70), cv::Scalar(10, 255, 255), mask);
         if (cv::countNonZero(mask) > 500) { // threshold, adjust accordingly
             color = "Red";
         } else {
-            // Blue Colour
+            // Blue 
             cv::inRange(hsv, cv::Scalar(100, 150, 0), cv::Scalar(140, 255, 255), mask);
             if (cv::countNonZero(mask) > 500) {
                 color = "Blue";
@@ -72,10 +95,11 @@ cv::Point HeadCamera::detectColorAndShape(const ImageConstPtr& msg_rgb, std::str
             }
         }
         
+        // needs to be edited
         double perimeter = cv::arcLength(largestContour, true);
         double roundness = 4 * CV_PI * maxArea / (perimeter * perimeter);
         
-        if (roundness > 0.8) {  // adjust threshold as needed
+        if (roundness > 0.4) {  // adjust threshold as needed depends on what is present
             shape = "Cylinder";
         } else {
             shape = "Cube";
@@ -85,10 +109,11 @@ cv::Point HeadCamera::detectColorAndShape(const ImageConstPtr& msg_rgb, std::str
         return cv::Point(m.m10/m.m00, m.m01/m.m00);
     } catch (cv_bridge::Exception& e) {
         ROS_ERROR("cv_bridge exception in detectColor: %s", e.what());
-        return cv::Point(-1, -1); // invalid point to signify error
+        return cv::Point(-1, -1); // invalid point to signify error --> error mnmgmnt
     }
 }
 
+// get depth, do we need to add in local to global co-ords? TBD
 pcl::PointXYZ HeadCamera::getDepth(const PointCloud2ConstPtr& msg_depth, const cv::Point& centroid) {
     pcl::PointCloud<pcl::PointXYZ> depth;
     pcl::fromROSMsg(*msg_depth, depth);

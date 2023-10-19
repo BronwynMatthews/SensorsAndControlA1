@@ -16,9 +16,11 @@ class HeadCamera
 public:
     HeadCamera();
     void callback(const sensor_msgs::ImageConstPtr& msg_rgb, const sensor_msgs::PointCloud2ConstPtr& msg_depth);
+    ObjectInfo scanForObject();  // This is the function that other classes will call
+
 
 private:
-    cv::Point detectColorAndShape(const sensor_msgs::ImageConstPtr& msg_rgb, std::string& color, std::string& shape);
+    cv::Point detectColourAndShape(const sensor_msgs::ImageConstPtr& msg_rgb, std::string& color, std::string& shape);
     pcl::PointXYZ getDepth(const sensor_msgs::PointCloud2ConstPtr& msg_depth, const cv::Point& centroid);
 
     ros::NodeHandle nh_;
