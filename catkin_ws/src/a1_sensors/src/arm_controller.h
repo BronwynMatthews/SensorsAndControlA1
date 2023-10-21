@@ -14,6 +14,7 @@ public:
     void turnBase(double degrees, double velocity);
     void moveBaseForward(double distance, double velocity);
     void separateThread();
+    void randFunction();
 
 private:
     ros::NodeHandle nh_;

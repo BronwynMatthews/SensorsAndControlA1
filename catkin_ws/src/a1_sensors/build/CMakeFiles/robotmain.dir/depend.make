@@ -41,6 +41,7 @@ CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/move
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/macros/class_forward.h
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/macros/declare_ptr.h
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/move_group_interface/move_group_interface.h
+CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/planning_scene_interface/planning_scene_interface.h
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/fixed_joint_model.h
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/floating_joint_model.h
 CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/joint_model.h

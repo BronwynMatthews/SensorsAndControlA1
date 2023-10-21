@@ -5,6 +5,8 @@
 #include "ros/ros.h"
 #include <sensor_msgs/JointState.h>
 #include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/planning_scene_interface/planning_scene_interface.h>
+
 
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     // Initialize MoveIt
@@ -52,7 +54,57 @@ void ArmController::separateThread() {
     double x_distance = 13.0;  // Desired X distance (adjust as needed)
     double turn_distance = 2.0;  // Desired Y distance (adjust as needed)
     double turn_negdistance = 1.5;
-    double shortdist = 1;
+    double shortdist = 0.5;
+    while (ros::ok()) {
+        if (turn_distance > 0) {
+            turnBase(turn_distance, 1.0); // Turn by 1 degree per cycle
+            turn_distance = 0.0;
+        } else if (x_distance > 0) {
+            moveBaseForward(x_distance, 3.0); // Move forward with 3.0 m/s velocity
+            x_distance = 0;
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        } else if (turn_negdistance > 0) {
+            turnBase(turn_negdistance, -1.0); // Turn by -1 degree per cycle (negative direction)
+            turn_negdistance = 0.0;
+        }
+        else if (shortdist > 0){
+                    moveBaseForward(shortdist, 0.5);
+                    shortdist = 0;
+                }
+         else {
+            // Set the target pose
+            geometry_msgs::PoseStamped target_pose;
+            //target_pose.header.frame_id = "world";  // Set the reference frame
+            target_pose.pose.position.x = 3.8;  // Set the desired position (x)
+            target_pose.pose.position.y = 3.15;  // Set the desired position (y)
+            target_pose.pose.position.z = 0.804140;  // Set the desired position (z)
+            target_pose.pose.orientation.x = 0;  // Set the desired orientation (x)
+            target_pose.pose.orientation.y = 0;  // Set the desired orientation (y)
+            target_pose.pose.orientation.z = 0;  // Set the desired orientation (z)
+            target_pose.pose.orientation.w = 0;  // Set the desired orientation (w)
+
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+
+            // Plan and execute the motion
+            moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+            bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+            if (success) {
+                // Move to the target pose
+                move_arm_->move();
+                ROS_INFO("Motion executed successfully!");
+            } else {
+                ROS_ERROR("Failed to plan the motion.");
+            }
+        }
+    }
+}
+void ArmController::randFunction(){
+    double x_distance = 0;//13.0;  // Desired X distance (adjust as needed)
+    double turn_distance = 0;//2.0;  // Desired Y distance (adjust as needed)
+    double turn_negdistance = 0;//1.5;
+    double shortdist = 0;//1;
 
     while (ros::ok()) {
         if (turn_distance > 0) {
@@ -66,25 +118,25 @@ void ArmController::separateThread() {
             turnBase(turn_negdistance, -1.0); // Turn by -1 degree per cycle (negative direction)
             turn_negdistance = 0.0;
         }
-        //  else {
-        //     // Arm execution
-        //     // Plan and execute the motion
-        //     move_arm_->setNamedTarget("start");
-        //     moveit::planning_interface::MoveGroupInterface::Plan my_plan;
-        //     bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+         else {
+            // Arm execution
+            // Plan and execute the motion
+            move_arm_->setNamedTarget("start");
+            moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+            bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
 
-        //     if (success) {
-        //         //ROS_INFO("Planning and executing the motion...");
-        //         move_arm_->move();
-        //         //ROS_INFO("Motion executed successfully!");
-        //         if (shortdist > 0){
-        //             moveBaseForward(shortdist, 0.5);
-        //             shortdist = 0;
-        //         }
-        //     } else {
-        //         ROS_ERROR("Failed to plan the motion.");
-        //     }
-        // }
+            if (success) {
+                //ROS_INFO("Planning and executing the motion...");
+                move_arm_->move();
+                //ROS_INFO("Motion executed successfully!");
+                if (shortdist > 0){
+                    moveBaseForward(shortdist, 0.5);
+                    shortdist = 0;
+                }
+            } else {
+                ROS_ERROR("Failed to plan the motion.");
+            }
+        }
     }
 }
 void ArmController::jointStateCallback(const sensor_msgs::JointState::ConstPtr &msg) {

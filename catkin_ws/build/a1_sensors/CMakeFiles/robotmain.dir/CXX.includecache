@@ -9,6 +9,10 @@
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp
 iostream
 -
+thread
+-
+chrono
+-
 arm_controller.h
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.h
 ros/ros.h
@@ -16,6 +20,8 @@ ros/ros.h
 sensor_msgs/JointState.h
 -
 moveit/move_group_interface/move_group_interface.h
+-
+moveit/planning_scene_interface/planning_scene_interface.h
 -
 
 /home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.h
@@ -536,6 +542,20 @@ actionlib/client/simple_action_client.h
 memory
 -
 tf2_ros/buffer.h
+-
+
+/opt/ros/melodic/include/moveit/planning_scene_interface/planning_scene_interface.h
+moveit/macros/class_forward.h
+-
+moveit/robot_state/robot_state.h
+-
+moveit_msgs/ObjectColor.h
+-
+moveit_msgs/CollisionObject.h
+-
+moveit_msgs/AttachedCollisionObject.h
+-
+moveit_msgs/PlanningScene.h
 -
 
 /opt/ros/melodic/include/moveit/robot_model/fixed_joint_model.h

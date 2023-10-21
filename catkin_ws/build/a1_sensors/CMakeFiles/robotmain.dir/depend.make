@@ -41,6 +41,7 @@ a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/i
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/macros/class_forward.h
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/macros/declare_ptr.h
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/move_group_interface/move_group_interface.h
+a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/planning_scene_interface/planning_scene_interface.h
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/fixed_joint_model.h
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/floating_joint_model.h
 a1_sensors/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o: /opt/ros/melodic/include/moveit/robot_model/joint_model.h
