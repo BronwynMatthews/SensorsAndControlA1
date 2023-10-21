@@ -1,4 +1,6 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "arm_controller.h"
 #include "ros/ros.h"
 #include <sensor_msgs/JointState.h>
@@ -6,51 +8,88 @@
 
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     // Initialize MoveIt
-    move_group_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("arm");
-
+    move_arm_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("arm");
+    // Initialize MoveIt for the base group
+    //move_base_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("base");
     // Set a lower planning time to make planning faster (adjust as needed)
-    move_group_->setPlanningTime(5.0);
+    move_arm_->setPlanningTime(5.0);
 
     // Subscribe to joint_states topic to receive current joint positions
     joint_state_sub_ = nh_.subscribe("/joint_states", 1, &ArmController::jointStateCallback, this);
 
     // Create a publisher to send joint position commands
     joint_command_pub_ = nh_.advertise<sensor_msgs::JointState>("/joint_commands", 1);
+    // Create a publisher for sending velocity commands
+    velocity_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
 }
+void ArmController::moveBase(const geometry_msgs::Twist& cmd_vel, double duration) {
+    ros::Rate rate(5.0);
+    ros::Time start_time = ros::Time::now();
 
-void ArmController::separateThread() {
-    ros::Rate loop_rate(5.0); // Set the rate at which you want to control the arm (adjust as needed)
-
-    while (ros::ok()) {
-        // Example: Move the robot's arm to a predefined joint position
-        std::vector<double> target_joint_values = {-1.0, 0.25, -0.25, 0.5, -0.9, 1.2, -0.5};
-        move_group_->setJointValueTarget(target_joint_values);
-        
-        // Plan and execute the motion
-
-        /////// NOT WORKING ////////
-        // moveit::planning_interface::MoveGroupInterface::Plan my_plan;
-        // bool success = (move_group_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-        
-        // if (success) {
-        //     ROS_INFO("Planning and executing the motion...");
-        //     move_group_->move();
-        //     ROS_INFO("Motion executed successfully!");
-        // } else {
-        //     ROS_ERROR("Failed to plan the motion.");
-        // }
-
-        // Execute the motion
-        ROS_INFO("Planning and executing the motion...");
-        move_group_->move();
-        ROS_INFO("Motion executed successfully!");
-        loop_rate.sleep();
+    while (ros::Time::now() - start_time < ros::Duration(duration) && ros::ok()) {
+        velocity_pub.publish(cmd_vel);
+        rate.sleep();
     }
 }
 
+void ArmController::turnBase(double degrees, double velocity) {
+    geometry_msgs::Twist cmd_vel;
+    cmd_vel.linear.x = 0.0;
+    cmd_vel.angular.z = velocity;
+    ROS_INFO("Turning...");
+    moveBase(cmd_vel, degrees / std::abs(velocity));
+}
+
+void ArmController::moveBaseForward(double distance, double velocity) {
+    geometry_msgs::Twist cmd_vel;
+    cmd_vel.linear.x = velocity;
+    cmd_vel.angular.z = 0.0;
+    ROS_INFO("Moving straight. X Distance: %f", distance);
+    moveBase(cmd_vel, distance / velocity);
+}
+
+void ArmController::separateThread() {
+    double x_distance = 13.0;  // Desired X distance (adjust as needed)
+    double turn_distance = 2.0;  // Desired Y distance (adjust as needed)
+    double turn_negdistance = 1.5;
+    double shortdist = 1;
+
+    while (ros::ok()) {
+        if (turn_distance > 0) {
+            turnBase(turn_distance, 1.0); // Turn by 1 degree per cycle
+            turn_distance = 0.0;
+        } else if (x_distance > 0) {
+            moveBaseForward(x_distance, 3.0); // Move forward with 3.0 m/s velocity
+            x_distance = 0;
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        } else if (turn_negdistance > 0) {
+            turnBase(turn_negdistance, -1.0); // Turn by -1 degree per cycle (negative direction)
+            turn_negdistance = 0.0;
+        }
+        //  else {
+        //     // Arm execution
+        //     // Plan and execute the motion
+        //     move_arm_->setNamedTarget("start");
+        //     moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+        //     bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+        //     if (success) {
+        //         //ROS_INFO("Planning and executing the motion...");
+        //         move_arm_->move();
+        //         //ROS_INFO("Motion executed successfully!");
+        //         if (shortdist > 0){
+        //             moveBaseForward(shortdist, 0.5);
+        //             shortdist = 0;
+        //         }
+        //     } else {
+        //         ROS_ERROR("Failed to plan the motion.");
+        //     }
+        // }
+    }
+}
 void ArmController::jointStateCallback(const sensor_msgs::JointState::ConstPtr &msg) {
     // Process joint state data, e.g., print joint angles.
     for (size_t i = 0; i < msg->position.size(); ++i) {
-        ROS_INFO("Joint %zu: %f", i, msg->position[i]);
+        //ROS_INFO("Joint %zu: %f", i, msg->position[i]);
     }
 }

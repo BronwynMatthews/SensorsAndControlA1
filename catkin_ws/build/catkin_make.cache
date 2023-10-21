@@ -1,2 +1,2 @@
-a1_sensors:fetch_gazebo/fetch_gazebo:fetch_gazebo/fetch_gazebo_demo:fetch_gazebo/fetch_simulation:fetch_gazebo/fetchit_challenge:fetch_movit_config
+a1_sensors:fetch_gazebo/fetch_gazebo:fetch_gazebo/fetch_gazebo_demo:fetch_gazebo/fetch_simulation:fetch_gazebo/fetchit_challenge:fetch_moveit_config
 -DCATKIN_DEVEL_PREFIX=/home/jack/SensorsAndControlA1/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/jack/SensorsAndControlA1/catkin_ws/install -G Unix Makefiles

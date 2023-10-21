@@ -771,10 +771,16 @@ fetch_moveit_config_BINARY_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/b
 fetch_moveit_config_SOURCE_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/src/fetch_moveit_config
 
 //Value Computed by CMake
-fetch_movit_config_BINARY_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_movit_config
+fetch_movit_config_BINARY_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_movit_config_ws
 
 //Value Computed by CMake
-fetch_movit_config_SOURCE_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/src/fetch_movit_config
+fetch_movit_config_SOURCE_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/src/fetch_movit_config_ws
+
+//Value Computed by CMake
+fetch_movit_config_ws_BINARY_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_movit_config_ws
+
+//Value Computed by CMake
+fetch_movit_config_ws_SOURCE_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/src/fetch_movit_config_ws
 
 //Value Computed by CMake
 fetch_simulation_BINARY_DIR:STATIC=/home/jack/SensorsAndControlA1/catkin_ws/build/fetch_gazebo/fetch_simulation
