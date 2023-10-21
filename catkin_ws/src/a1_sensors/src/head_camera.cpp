@@ -1,122 +1,68 @@
 #include "head_camera.h"
-#include <iostream>
 
-
-struct ObjectInfo {
-    cv::Point2d location;
-    pcl::PointXYZ depthLocation;
-    std::string color;
-    std::string shape;
-};
-
-// constructor
 HeadCamera::HeadCamera() {
-    sub_rgb.subscribe(nh_, "/head_camera/rgb/image_raw", 1);
-    sub_depth.subscribe(nh_, "/head_camera/depth_registered/points", 1);
+    sub_rgb = nh_.subscribe("/head_camera/rgb/image_raw", 1, &HeadCamera::rgbCallback, this);
+    sub_depth = nh_.subscribe("/head_camera/depth_registered/points", 1, &HeadCamera::depthCallback, this);
 }
 
-// function to call from other class to scan fore object, prototyping stage until used for testing
-ObjectInfo HeadCamera::scanForObject() {
-    newDataAvailable_ = false;
-
-      // Wait until new data is available
-    while (!newDataAvailable_) {
-        ros::spinOnce();  // Let ROS process callbacks
-    }
-
-    return lastDetectedObject_;
+void HeadCamera::rgbCallback(const sensor_msgs::ImageConstPtr& msg) {
+    ROS_INFO("Received RGB image with width: %d, height: %d", msg->width, msg->height);
 }
 
-// callback for camera readings
-void HeadCamera::callback(const ImageConstPtr& msg_rgb, const PointCloud2ConstPtr& msg_depth) {
+void HeadCamera::depthCallback(const sensor_msgs::PointCloud2ConstPtr& msg) {
+    ROS_INFO("Received depth data with width: %d, height: %d", msg->width, msg->height);
+}
 
-    // used for retaining old data
-    lastDetectedObject_.location = detectColorAndShape(msg_rgb, lastDetectedObject_.color, lastDetectedObject_.shape);
-    lastDetectedObject_.depthLocation = getDepth(msg_depth, lastDetectedObject_.location);
+int main(int argc, char **argv) {
+    ros::init(argc, argv, "head_camera_test");
+    HeadCamera headCamera;
+    ros::spin();
+    return 0;
+}
 
-    ObjectInfo detectedObject;
+// #include "head_camera.h"
+// #include <iostream>
+
+// // constructor
+// HeadCamera::HeadCamera() {
+//     sub_rgb.subscribe(nh_, "/head_camera/rgb/image_raw", 1);
+//     sub_depth.subscribe(nh_, "/head_camera/depth_registered/points", 1);
+// }
+
+
+
+// // callback for camera readings
+// void HeadCamera::callback(const ImageConstPtr& msg_rgb, const PointCloud2ConstPtr& msg_depth) {
+
+//     ObjectInfo detectedObject;
     
-    detectedObject.location = detectColorAndShape(msg_rgb, detectedObject.color, detectedObject.shape);
-    detectedObject.depthLocation = getDepth(msg_depth, detectedObject.location);
+//     detectedObject.location = detectColour(msg_rgb, detectedObject.color, detectedObject.shape);
+//     detectedObject.depthLocation = getDepth(msg_depth, detectedObject.location);
     
-    geometry_msgs::PointStamped target; 
-    target.point.x = detectedObject.depthLocation.x;
-    target.point.y = detectedObject.depthLocation.y;
-    target.point.z = detectedObject.depthLocation.z;
+//     geometry_msgs::PointStamped target; 
+//     target.point.x = detectedObject.depthLocation.x;
+//     target.point.y = detectedObject.depthLocation.y;
+//     target.point.z = detectedObject.depthLocation.z;
     
-    target.header.frame_id = "head_camera_rgb_optical_frame";
-    target.header.stamp = ros::Time::now();
-    pubPoint_.publish(target);
+//     target.header.frame_id = "head_camera_rgb_optical_frame";
+//     target.header.stamp = ros::Time::now();
+//     pubPoint_.publish(target);
     
-    // store this information or pass it to another class
-    // for now, just printing it
-    std::cout << "Detected " << detectedObject.color << " " << detectedObject.shape 
-              << " at 2D location: " << detectedObject.location 
-              << " and 3D location: (" << target.point.x << ", " << target.point.y << ", " << target.point.z << ")\n";
-}
+//     // store this information or pass it to another class
+//     // for now, just printing it
+//     std::cout << "Detected " << detectedObject.color << " " << detectedObject.shape 
+//               << " and 3D location: (" << target.point.x << ", " << target.point.y << ", " << target.point.z << ")\n";
+// }
 
-// if below function doesn't work, make vector of points and use vector of points to make segments,
-// make a shortest seg function from a vec of vecs as cylinder and cube should form smallest number of points in vec
-// also make sure to have minimum accpetance as random points may be included in the segments being formed from the scan 
-cv::Point HeadCamera::detectColourAndShape(const ImageConstPtr& msg_rgb, std::string& color, std::string& shape) {
-    cv_bridge::CvImagePtr cv_ptr;
-    cv::Mat image, hsv, mask;
+// // cv::Point HeadCamera:detectColourPoint {
 
-    try {
-        cv_ptr = cv_bridge::toCvCopy(*msg_rgb, sensor_msgs::image_encodings::TYPE_8UC3);
-        image = cv_ptr->image;
-        cv::cvtColor(image, hsv, CV_BGR2HSV);
-        
-        // Red 
-        cv::inRange(hsv, cv::Scalar(0, 120, 70), cv::Scalar(10, 255, 255), mask);
-        if (cv::countNonZero(mask) > 500) { // threshold, adjust accordingly
-            color = "Red";
-        } else {
-            // Blue 
-            cv::inRange(hsv, cv::Scalar(100, 150, 0), cv::Scalar(140, 255, 255), mask);
-            if (cv::countNonZero(mask) > 500) {
-                color = "Blue";
-            } else {
-                return cv::Point(-1, -1); // Other/no colour detected
-            }
-        }
-        
-        std::vector<std::vector<cv::Point>> contours;
-        cv::findContours(mask, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
 
-        // assuming the largest contour is our object
-        double maxArea = 0;
-        std::vector<cv::Point> largestContour;
-        for (const auto& contour : contours) {
-            double area = cv::contourArea(contour);
-            if (area > maxArea) {
-                maxArea = area;
-                largestContour = contour;
-            }
-        }
-        
-        // needs to be edited
-        double perimeter = cv::arcLength(largestContour, true);
-        double roundness = 4 * CV_PI * maxArea / (perimeter * perimeter);
-        
-        if (roundness > 0.4) {  // adjust threshold as needed depends on what is present
-            shape = "Cylinder";
-        } else {
-            shape = "Cube";
-        }
-        
-        cv::Moments m = cv::moments(mask, true);
-        return cv::Point(m.m10/m.m00, m.m01/m.m00);
-    } catch (cv_bridge::Exception& e) {
-        ROS_ERROR("cv_bridge exception in detectColor: %s", e.what());
-        return cv::Point(-1, -1); // invalid point to signify error --> error mnmgmnt
-    }
-}
+// // }
 
-// get depth, do we need to add in local to global co-ords? TBD
-pcl::PointXYZ HeadCamera::getDepth(const PointCloud2ConstPtr& msg_depth, const cv::Point& centroid) {
-    pcl::PointCloud<pcl::PointXYZ> depth;
-    pcl::fromROSMsg(*msg_depth, depth);
-    depth.points.resize(depth.width * depth.height);
-    return depth.at(centroid.x, centroid.y);
-}
+// // get depth, do we need to add in local to global co-ords? TBD
+// pcl::PointXYZ HeadCamera::getDepth(const PointCloud2ConstPtr& msg_depth, const cv::Point& centroid) {
+//     pcl::PointCloud<pcl::PointXYZ> depth;
+//     pcl::fromROSMsg(*msg_depth, depth);
+//     depth.points.resize(depth.width * depth.height);
+//     return depth.at(centroid.x, centroid.y);
+// }
