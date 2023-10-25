@@ -56,7 +56,7 @@
     </group_state>
     <group_state name="tilt_down" group="head">
         <joint name="head_pan_joint" value="0" />
-        <joint name="head_tilt_joint" value="0.29" />
+        <joint name="head_tilt_joint" value="0.35" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper" parent_link="gripper_link" group="arm" />

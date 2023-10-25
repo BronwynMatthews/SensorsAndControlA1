@@ -1,31 +1,50 @@
 #ifndef HEAD_CAMERA_H
 #define HEAD_CAMERA_H
 
-#include "ros/ros.h"
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <cv_bridge/cv_bridge.h>
-#include <opencv2/opencv.hpp>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/PointStamped.h>
 #include <tf2_ros/transform_listener.h>
-#include <geometry_msgs/TransformStamped.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-
+#include <tf/transform_listener.h>  // Include TF
 
 class HeadCamera {
 public:
     HeadCamera();
-    void rgbCallback(const sensor_msgs::ImageConstPtr& msg);
-    void depthCallback(const sensor_msgs::PointCloud2ConstPtr& msg);
+    void rgbCallback(const sensor_msgs::ImageConstPtr& msg_rgb);
+    void depthCallback(const sensor_msgs::PointCloud2ConstPtr& msg_depth);
     std::string detectColor(const sensor_msgs::ImageConstPtr& msg_rgb);
     cv::Point3f get3DPoint(int u, int v);
     cv::Point2f findColorLocation(const cv::Mat& mask);
     void transformPointToBaseLink(const cv::Point3f &point_in_head_frame);
+    geometry_msgs::PointStamped detectObject();
+    void findAndPublishBlueObjectCorners(cv::Mat& image);
+    void transformPointToBaseLinkFrame(pcl::PointXYZRGB& point);
+    void calculateMidpointInBaseLinkFrame();
 
 private:
     ros::NodeHandle nh_;
     ros::Subscriber sub_rgb;
     ros::Subscriber sub_depth;
+    pcl::PointCloud<pcl::PointXYZRGB> cloud_;
     sensor_msgs::PointCloud2ConstPtr latest_depth_msg_;
+    cv::Mat depth_image_;
+    // tf2_ros::Buffer tfBuffer_;
+    // tf2_ros::TransformListener tfListener_;
+    bool objectCornersDetected;
+    int detectionCounter = 0;
+    int maxDetections = 20;
+    std::vector<cv::Point> objectCorners;
+    std::vector<pcl::PointXYZRGB> objectPoints;
+        // TF Listener
+    tf::TransformListener* tfListener;
 };
 
 #endif  // HEAD_CAMERA_H

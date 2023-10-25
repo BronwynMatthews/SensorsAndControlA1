@@ -93,12 +93,12 @@ void ArmController::separateThread() {
             current_pose = move_arm_->getCurrentPose("wrist_flex_link");
             // // Set the target pose
             geometry_msgs::PoseStamped target_pose;
+            //target_pose.header.frame_id = ("head_camera_rgb_optical_frame");
             target_pose.header.frame_id = ("base_link");
-            //target_pose.header.frame_id = ("base_link");
             target_pose.pose.orientation = current_pose.pose.orientation;
-            target_pose.pose.position.x = 0.6;  // Set the desired position (x)
-            target_pose.pose.position.y = 0.1;  // Set the desired position (y)
-            target_pose.pose.position.z = 0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
+            target_pose.pose.position.x = 0.569478;//0.6;  // Set the desired position (x)
+            target_pose.pose.position.y = 0.09940;//0.1;  // Set the desired position (y)
+            target_pose.pose.position.z = 0.68997 + 0.17 + gripper_offset;//0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
             // Set the target pose as the goal
             move_arm_->setPoseTarget(target_pose);
             // Move the arm
@@ -106,10 +106,10 @@ void ArmController::separateThread() {
 
             // MOVE DOWN ONTO BOX
             // Set the target pose
-            target_pose.pose.position.x = target_pose.pose.position.x - gripper_offset;  // Set the desired position (z)
-            // Set the target pose as the goal
-            move_arm_->setPoseTarget(target_pose);
-            moveArm();
+            // target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
+            // // Set the target pose as the goal
+            // move_arm_->setPoseTarget(target_pose);
+            // moveArm();
 
 
             // CLOSE THE GRIPPER TO PICK UP BOX
