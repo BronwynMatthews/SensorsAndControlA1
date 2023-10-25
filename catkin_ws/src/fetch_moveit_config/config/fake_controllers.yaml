@@ -20,6 +20,20 @@ controller_list:
       - forearm_roll_joint
       - wrist_flex_joint
       - wrist_roll_joint
+  - name: fake_gripper_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - l_gripper_finger_joint
+      - r_gripper_finger_joint
+  - name: fake_head_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - head_pan_joint
+      - head_tilt_joint
 initial:  # Define initial robot poses.
   - group: arm
     pose: start
+  - group: gripper
+    pose: open
+  - group: head
+    pose: tilt_down

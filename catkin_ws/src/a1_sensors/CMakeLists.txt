@@ -15,6 +15,10 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_core
   moveit_ros_planning_interface
   Eigen3
+  cv_bridge
+  pcl_conversions
+  pcl_ros
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -109,7 +113,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES a1_sensors
-#  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs
+#  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf2_ros
 #  DEPENDS system_lib
 )
 
@@ -121,7 +125,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
 # include
-  ${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -137,7 +141,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(robotmain src/main.cpp src/arm_controller.cpp)
+add_executable(robotmain src/main.cpp src/arm_controller.cpp src/head_camera.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -151,7 +155,7 @@ add_executable(robotmain src/main.cpp src/arm_controller.cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(robotmain
-   ${catkin_LIBRARIES} ${MOVEIT_LIBRARIES} ${OCTOMAP_LIBRARIES}
+   ${catkin_LIBRARIES} ${MOVEIT_LIBRARIES} ${OCTOMAP_LIBRARIES} ${OpenCV_LIBRARIES} ${PCL_LIBRARIES}
  )
 
 #############

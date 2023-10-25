@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/robotmain.dir/src/main.cpp.o"
   "CMakeFiles/robotmain.dir/src/arm_controller.cpp.o"
+  "CMakeFiles/robotmain.dir/src/head_camera.cpp.o"
   "/home/jack/SensorsAndControlA1/catkin_ws/devel/lib/a1_sensors/robotmain.pdb"
   "/home/jack/SensorsAndControlA1/catkin_ws/devel/lib/a1_sensors/robotmain"
 )

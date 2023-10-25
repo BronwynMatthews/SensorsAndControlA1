@@ -13,15 +13,21 @@ public:
     void moveBase(const geometry_msgs::Twist& cmd_vel, double duration);
     void turnBase(double degrees, double velocity);
     void moveBaseForward(double distance, double velocity);
+    void gripperControl(const std::string& action);
     void separateThread();
     void randFunction();
+    void moveArm();
 
 private:
     ros::NodeHandle nh_;
     ros::Subscriber joint_state_sub_;
     ros::Publisher joint_command_pub_;
     ros::Publisher velocity_pub;
+    ros::Publisher gripper_publisher;
+    ros::Publisher head_goal_pub;
     std::unique_ptr<moveit::planning_interface::MoveGroupInterface> move_arm_;
+    std::unique_ptr<moveit::planning_interface::MoveGroupInterface> move_gripper_;
+    std::unique_ptr<moveit::planning_interface::MoveGroupInterface> move_cam_;
     //std::unique_ptr<moveit::planning_interface::MoveGroupInterface> move_base_;
 };
 

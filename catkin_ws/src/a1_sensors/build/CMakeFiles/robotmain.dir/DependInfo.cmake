@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/arm_controller.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/CMakeFiles/robotmain.dir/src/arm_controller.cpp.o"
+  "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/head_camera.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/CMakeFiles/robotmain.dir/src/head_camera.cpp.o"
   "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/src/main.cpp" "/home/jack/SensorsAndControlA1/catkin_ws/src/a1_sensors/build/CMakeFiles/robotmain.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
@@ -22,6 +23,22 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/opt/ros/melodic/share/orocos_kdl/cmake/../../../include"
   "/usr/include/eigen3"
+  "/usr/include/opencv"
+  "/usr/include/pcl-1.8"
+  "/usr/include/ni"
+  "/usr/include/openni2"
+  "/usr/include/vtk-6.3"
+  "/usr/include/freetype2"
+  "/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi"
+  "/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent"
+  "/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent/include"
+  "/usr/lib/x86_64-linux-gnu/openmpi/include"
+  "/usr/include/python2.7"
+  "/usr/include/x86_64-linux-gnu"
+  "/usr/include/hdf5/openmpi"
+  "/usr/include/libxml2"
+  "/usr/include/jsoncpp"
+  "/usr/include/tcl"
   )
 
 # Targets to which this target links.

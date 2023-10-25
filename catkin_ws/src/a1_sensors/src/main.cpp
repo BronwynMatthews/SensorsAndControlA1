@@ -1,5 +1,7 @@
 #include "ros/ros.h"
 #include "arm_controller.h"
+#include "head_camera.h"
+#include "perception.h"
 #include <thread>
 
 int main(int argc, char **argv) {
@@ -8,6 +10,7 @@ int main(int argc, char **argv) {
 
     // Create an instance of ArmController
     ArmController controller(nh);
+    HeadCamera headCamera;
 
     // Start a separate thread
     std::thread t(&ArmController::separateThread, &controller);
@@ -16,6 +19,6 @@ int main(int argc, char **argv) {
     ros::shutdown();
 
     // Wait for the thread to finish
-    t.join();
+    //t.join();
     return 0;
 }

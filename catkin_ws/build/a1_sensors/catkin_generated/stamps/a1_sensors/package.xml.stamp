@@ -65,6 +65,11 @@
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>moveit_core</exec_depend>  <!-- Add this line -->
   <exec_depend>moveit_ros_planning_interface</exec_depend>  <!-- Add this line -->
+  <build_depend>tf2</build_depend>
+  <exec_depend>tf2</exec_depend>
+  <build_depend>tf2_ros</build_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
 
 
 

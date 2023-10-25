@@ -6,16 +6,23 @@
 #include <sensor_msgs/JointState.h>
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
+#include <control_msgs/GripperCommandAction.h>
+#include <control_msgs/FollowJointTrajectoryAction.h>
+#include <control_msgs/FollowJointTrajectoryGoal.h>
 
 
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     // Initialize MoveIt
     move_arm_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("arm");
+    move_gripper_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("gripper");
+    move_cam_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("head");
     // Initialize MoveIt for the base group
     //move_base_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("base");
-    // Set a lower planning time to make planning faster (adjust as needed)
-    move_arm_->setPlanningTime(5.0);
-
+    move_gripper_->setPlanningTime(10.0);
+    //create gripper publisher
+    gripper_publisher = nh_.advertise<control_msgs::GripperCommandActionGoal>("/gripper_controller/gripper_action/goal", 1);
+    
+    head_goal_pub = nh_.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/head_controller/follow_joint_trajectory/goal", 1);
     // Subscribe to joint_states topic to receive current joint positions
     joint_state_sub_ = nh_.subscribe("/joint_states", 1, &ArmController::jointStateCallback, this);
 
@@ -51,11 +58,12 @@ void ArmController::moveBaseForward(double distance, double velocity) {
 }
 
 void ArmController::separateThread() {
-    double x_distance = 13.0;  // Desired X distance (adjust as needed)
-    double turn_distance = 2.0;  // Desired Y distance (adjust as needed)
-    double turn_negdistance = 1.5;
-    double shortdist = 0.5;
-    while (ros::ok()) {
+    double x_distance = 0;//13.0;  // Desired X distance (adjust as needed)
+    double turn_distance = 0;//2.0;  // Desired Y distance (adjust as needed)
+    double turn_negdistance = 0;//1.5;
+    double shortdist = 0;//0.5;
+    double gripper_offset = 0.1;
+    //while (ros::ok()) {
         if (turn_distance > 0) {
             turnBase(turn_distance, 1.0); // Turn by 1 degree per cycle
             turn_distance = 0.0;
@@ -72,33 +80,105 @@ void ArmController::separateThread() {
                     shortdist = 0;
                 }
          else {
-            // Set the target pose
-            geometry_msgs::PoseStamped target_pose;
-            //target_pose.header.frame_id = "world";  // Set the reference frame
-            target_pose.pose.position.x = 3.8;  // Set the desired position (x)
-            target_pose.pose.position.y = 3.15;  // Set the desired position (y)
-            target_pose.pose.position.z = 0.804140;  // Set the desired position (z)
-            target_pose.pose.orientation.x = 0;  // Set the desired orientation (x)
-            target_pose.pose.orientation.y = 0;  // Set the desired orientation (y)
-            target_pose.pose.orientation.z = 0;  // Set the desired orientation (z)
-            target_pose.pose.orientation.w = 0;  // Set the desired orientation (w)
+            move_cam_->setNamedTarget("tilt_down");
+            move_cam_->move();
 
+
+            // //MOVE ARM TO START POSE
+            move_arm_->setNamedTarget("start");
+            moveArm();
+
+            // //MOVE TO POS ABOVE BOX
+            geometry_msgs::PoseStamped current_pose;
+            current_pose = move_arm_->getCurrentPose("wrist_flex_link");
+            // // Set the target pose
+            geometry_msgs::PoseStamped target_pose;
+            target_pose.header.frame_id = ("base_link");
+            //target_pose.header.frame_id = ("base_link");
+            target_pose.pose.orientation = current_pose.pose.orientation;
+            target_pose.pose.position.x = 0.6;  // Set the desired position (x)
+            target_pose.pose.position.y = 0.1;  // Set the desired position (y)
+            target_pose.pose.position.z = 0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
             // Set the target pose as the goal
             move_arm_->setPoseTarget(target_pose);
+            // Move the arm
+            moveArm();
 
-            // Plan and execute the motion
-            moveit::planning_interface::MoveGroupInterface::Plan my_plan;
-            bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+            // MOVE DOWN ONTO BOX
+            // Set the target pose
+            target_pose.pose.position.x = target_pose.pose.position.x - gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
 
-            if (success) {
-                // Move to the target pose
-                move_arm_->move();
-                ROS_INFO("Motion executed successfully!");
-            } else {
-                ROS_ERROR("Failed to plan the motion.");
-            }
+
+            // CLOSE THE GRIPPER TO PICK UP BOX
+            // gripperControl("close");
+
+
+            // // MOVE ARM BACK UP
+            // target_pose.position.z = target_pose.position.z + gripper_offset;  // Set the desired position (z)
+            // // Set the target pose as the goal
+            // move_arm_->setPoseTarget(target_pose);
+            // moveArm();
+
+
+            // //MOVE ARM TO SEPERATE LOCATION
+            // target_pose.position.x = target_pose.position.x + 0.1;
+            // target_pose.position.y = target_pose.position.y - 0.2;
+            // target_pose.position.z = target_pose.position.z;  // Set the desired position (z)
+
+            // // Set the target pose as the goal
+            // move_arm_->setPoseTarget(target_pose);
+            // moveArm();
+
+            // // MOVE ARM DOWN
+            // target_pose.position.z = target_pose.position.z - gripper_offset;  // Set the desired position (z)
+            // // Set the target pose as the goal
+            // move_arm_->setPoseTarget(target_pose);
+            // moveArm();
+
+            // //OPEN GRIPPER
+            // gripperControl("open");
+
+            // // MOVE ARM UP 
+            // target_pose.position.z = target_pose.position.z + gripper_offset;  // Set the desired position (z)
+            // // Set the target pose as the goal
+            // move_arm_->setPoseTarget(target_pose);
+            // moveArm();
         }
+    //}
+}
+
+void ArmController::moveArm(){
+    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+    bool success = (move_arm_->plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+
+    if (success) {
+        //ROS_INFO("Planning and executing the motion...");
+        move_arm_->move();
+        //ROS_INFO("Motion executed successfully!");
+    } else {
+        ROS_ERROR("Failed to plan the motion.");
     }
+}
+
+void ArmController::gripperControl(const std::string& action){
+    control_msgs::GripperCommandActionGoal goal;
+    if (action == "open"){
+        // Define the gripper position
+        goal.goal.command.position = 0.5;
+    }
+    else if (action == "close"){
+        goal.goal.command.position = 0.0;
+    }
+
+    goal.goal.command.max_effort = 100.0; // Adjust the effort as needed
+
+    // Publish the goal to the gripper action server
+    gripper_publisher.publish(goal);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
 }
 void ArmController::randFunction(){
     double x_distance = 0;//13.0;  // Desired X distance (adjust as needed)
