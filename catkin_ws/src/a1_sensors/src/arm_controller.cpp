@@ -10,9 +10,9 @@
 #include <control_msgs/FollowJointTrajectoryAction.h>
 #include <control_msgs/FollowJointTrajectoryGoal.h>
 
-// Arm controller function below 
+// Constructur for ArmController class
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
-    // Initialize MoveIt
+    // Initialize MoveIt interfaces for Fetch
     move_arm_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("arm");
     move_gripper_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("gripper");
     move_cam_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("head");
@@ -22,6 +22,7 @@ ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     //create gripper publisher
     gripper_publisher = nh_.advertise<control_msgs::GripperCommandActionGoal>("/gripper_controller/gripper_action/goal", 1);
     
+    // Create publisher to send goals to head's joint trajectory controller
     head_goal_pub = nh_.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/head_controller/follow_joint_trajectory/goal", 1);
     // Subscribe to joint_states topic to receive current joint positions
     joint_state_sub_ = nh_.subscribe("/joint_states", 1, &ArmController::jointStateCallback, this);
@@ -31,6 +32,7 @@ ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     // Create a publisher for sending velocity commands
     velocity_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
 }
+
 void ArmController::moveBase(const geometry_msgs::Twist& cmd_vel, double duration) {
     ros::Rate rate(5.0);
     ros::Time start_time = ros::Time::now();
@@ -56,6 +58,7 @@ void ArmController::moveBaseForward(double distance, double velocity) {
     ROS_INFO("Moving straight. X Distance: %f", distance);
     moveBase(cmd_vel, distance / velocity);
 }
+
 
 void ArmController::separateThread() {
     double x_distance = 0;//13.0;  // Desired X distance (adjust as needed)
@@ -149,6 +152,7 @@ void ArmController::separateThread() {
         }
     //}
 }
+
 
 void ArmController::moveArm(){
     moveit::planning_interface::MoveGroupInterface::Plan my_plan;
