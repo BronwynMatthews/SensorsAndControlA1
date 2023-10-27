@@ -10,7 +10,7 @@
 #include <control_msgs/FollowJointTrajectoryAction.h>
 #include <control_msgs/FollowJointTrajectoryGoal.h>
 
-
+// Arm controller function below 
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
     // Initialize MoveIt
     move_arm_ = std::make_unique<moveit::planning_interface::MoveGroupInterface>("arm");
