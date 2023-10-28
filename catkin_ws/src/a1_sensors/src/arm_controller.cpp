@@ -9,6 +9,10 @@
 #include <control_msgs/GripperCommandAction.h>
 #include <control_msgs/FollowJointTrajectoryAction.h>
 #include <control_msgs/FollowJointTrajectoryGoal.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/passthrough.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/segmentation/extract_clusters.h>
 
 // Constructur for ArmController class
 ArmController::ArmController(ros::NodeHandle nh) : nh_(nh) {
@@ -66,6 +70,8 @@ void ArmController::separateThread() {
     double turn_negdistance = 0;//1.5;
     double shortdist = 0;//0.5;
     double gripper_offset = 0.1;
+    double depth_errorB = 0.02;
+    double depth_errorR = 0.04;
     //while (ros::ok()) {
         if (turn_distance > 0) {
             turnBase(turn_distance, 1.0); // Turn by 1 degree per cycle
@@ -83,25 +89,35 @@ void ArmController::separateThread() {
                     shortdist = 0;
                 }
          else {
+            
             move_cam_->setNamedTarget("tilt_down");
             move_cam_->move();
+
+            HeadCamera headCamera;
 
 
             // //MOVE ARM TO START POSE
             move_arm_->setNamedTarget("start");
             moveArm();
+            // ******************** MOVE BLUE CUBE *********************** //
 
             // //MOVE TO POS ABOVE BOX
             geometry_msgs::PoseStamped current_pose;
             current_pose = move_arm_->getCurrentPose("wrist_flex_link");
             // // Set the target pose
+            // Get the detected point from the HeadCamera object
+            pcl::PointXYZRGB detectedPoint = headCamera.getDetectedPoint();
+            pcl::PointXYZRGB detectedRedPoint = headCamera.getDetectedRedPoint();
+            ROS_INFO("yo yuo: x=%f, y=%f, z=%f", detectedPoint.x, detectedPoint.y, detectedPoint.z);
+            ROS_INFO("yo yuo: x=%f, y=%f, z=%f", detectedRedPoint.x, detectedRedPoint.y, detectedRedPoint.z);
+
             geometry_msgs::PoseStamped target_pose;
             //target_pose.header.frame_id = ("head_camera_rgb_optical_frame");
             target_pose.header.frame_id = ("base_link");
             target_pose.pose.orientation = current_pose.pose.orientation;
-            target_pose.pose.position.x = 0.569478;//0.6;  // Set the desired position (x)
-            target_pose.pose.position.y = 0.09940;//0.1;  // Set the desired position (y)
-            target_pose.pose.position.z = 0.68997 + 0.17 + gripper_offset;//0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
+            target_pose.pose.position.x = detectedPoint.x + depth_errorR;//0.6;  // Set the desired position (x)
+            target_pose.pose.position.y = detectedPoint.y;//0.1;  // Set the desired position (y)
+            target_pose.pose.position.z = detectedPoint.z + 0.17 + gripper_offset;//0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
             // Set the target pose as the goal
             move_arm_->setPoseTarget(target_pose);
             // Move the arm
@@ -109,46 +125,100 @@ void ArmController::separateThread() {
 
             // MOVE DOWN ONTO BOX
             // Set the target pose
-            // target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
-            // // Set the target pose as the goal
-            // move_arm_->setPoseTarget(target_pose);
-            // moveArm();
+            target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
 
 
             // CLOSE THE GRIPPER TO PICK UP BOX
-            // gripperControl("close");
+            gripperControl("close");
 
 
-            // // MOVE ARM BACK UP
-            // target_pose.position.z = target_pose.position.z + gripper_offset;  // Set the desired position (z)
-            // // Set the target pose as the goal
-            // move_arm_->setPoseTarget(target_pose);
-            // moveArm();
+            // MOVE ARM BACK UP
+            target_pose.pose.position.z = target_pose.pose.position.z + gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
 
 
-            // //MOVE ARM TO SEPERATE LOCATION
-            // target_pose.position.x = target_pose.position.x + 0.1;
-            // target_pose.position.y = target_pose.position.y - 0.2;
-            // target_pose.position.z = target_pose.position.z;  // Set the desired position (z)
+            //MOVE ARM TO SEPERATE LOCATION
+            target_pose.pose.position.x = target_pose.pose.position.x + 0.075;
+            target_pose.pose.position.y = target_pose.pose.position.y + 0.1;
+            target_pose.pose.position.z = target_pose.pose.position.z;  // Set the desired position (z)
 
-            // // Set the target pose as the goal
-            // move_arm_->setPoseTarget(target_pose);
-            // moveArm();
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
 
-            // // MOVE ARM DOWN
-            // target_pose.position.z = target_pose.position.z - gripper_offset;  // Set the desired position (z)
-            // // Set the target pose as the goal
-            // move_arm_->setPoseTarget(target_pose);
-            // moveArm();
+            // MOVE ARM DOWN
+            target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
 
-            // //OPEN GRIPPER
-            // gripperControl("open");
+            //OPEN GRIPPER
+            gripperControl("open");
 
-            // // MOVE ARM UP 
-            // target_pose.position.z = target_pose.position.z + gripper_offset;  // Set the desired position (z)
-            // // Set the target pose as the goal
-            // move_arm_->setPoseTarget(target_pose);
-            // moveArm();
+            // MOVE ARM UP 
+            target_pose.pose.position.z = target_pose.pose.position.z + gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
+
+            // ****************************** MOVE RED CYLINDER ********************** //
+
+            target_pose.header.frame_id = ("base_link");
+            target_pose.pose.position.x = detectedRedPoint.x + depth_errorB;//0.6;  // Set the desired position (x)
+            target_pose.pose.position.y = detectedRedPoint.y;//0.1;  // Set the desired position (y)
+            target_pose.pose.position.z = detectedRedPoint.z + 0.17 + gripper_offset;//0.724 + 0.17 + gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            // Move the arm
+            moveArm();
+
+            // MOVE DOWN ONTO BOX
+            // Set the target pose
+            target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
+
+
+            // CLOSE THE GRIPPER TO PICK UP BOX
+            gripperControl("close");
+
+
+            // MOVE ARM BACK UP
+            target_pose.pose.position.z = target_pose.pose.position.z + gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
+
+
+            //MOVE ARM TO SEPERATE LOCATION
+            target_pose.pose.position.x = target_pose.pose.position.x + 0.0;
+            target_pose.pose.position.y = target_pose.pose.position.y + 0.3;
+            target_pose.pose.position.z = target_pose.pose.position.z;  // Set the desired position (z)
+
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
+
+            // MOVE ARM DOWN
+            target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
+
+            //OPEN GRIPPER
+            gripperControl("open");
+
+            // MOVE ARM UP 
+            target_pose.pose.position.z = target_pose.pose.position.z + gripper_offset;  // Set the desired position (z)
+            // Set the target pose as the goal
+            move_arm_->setPoseTarget(target_pose);
+            moveArm();
         }
     //}
 }
@@ -177,7 +247,7 @@ void ArmController::gripperControl(const std::string& action){
         goal.goal.command.position = 0.0;
     }
 
-    goal.goal.command.max_effort = 100.0; // Adjust the effort as needed
+    goal.goal.command.max_effort = 200.0; // Adjust the effort as needed
 
     // Publish the goal to the gripper action server
     gripper_publisher.publish(goal);
@@ -223,6 +293,7 @@ void ArmController::randFunction(){
         }
     }
 }
+
 void ArmController::jointStateCallback(const sensor_msgs::JointState::ConstPtr &msg) {
     // Process joint state data, e.g., print joint angles.
     for (size_t i = 0; i < msg->position.size(); ++i) {

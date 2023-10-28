@@ -25,9 +25,12 @@ public:
     cv::Point2f findColorLocation(const cv::Mat& mask);
     void transformPointToBaseLink(const cv::Point3f &point_in_head_frame);
     geometry_msgs::PointStamped detectObject();
-    void findAndPublishBlueObjectCorners(cv::Mat& image);
+    void findAndPublishBlueObjectCenter(cv::Mat& image);
+    void findAndPublishRedObjectCenter(cv::Mat& image);
     void transformPointToBaseLinkFrame(pcl::PointXYZRGB& point);
     void calculateMidpointInBaseLinkFrame();
+    pcl::PointXYZRGB getDetectedPoint() const;
+    pcl::PointXYZRGB getDetectedRedPoint() const;
 
 private:
     ros::NodeHandle nh_;
@@ -45,6 +48,9 @@ private:
     std::vector<pcl::PointXYZRGB> objectPoints;
         // TF Listener
     tf::TransformListener* tfListener;
+protected:
+  pcl::PointXYZRGB detectedPoint;
+  pcl::PointXYZRGB detectedRedPoint;
 };
 
 #endif  // HEAD_CAMERA_H

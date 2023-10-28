@@ -4,6 +4,7 @@
 #include "ros/ros.h"
 #include <sensor_msgs/JointState.h>
 #include <moveit/move_group_interface/move_group_interface.h>
+#include "head_camera.h"
 
 class ArmController {
 public:
@@ -19,6 +20,7 @@ public:
     void moveArm();
 
 private:
+
     ros::NodeHandle nh_;
     ros::Subscriber joint_state_sub_;
     ros::Publisher joint_command_pub_;

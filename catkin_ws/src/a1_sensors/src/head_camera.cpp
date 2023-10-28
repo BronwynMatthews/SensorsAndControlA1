@@ -13,7 +13,7 @@ HeadCamera::HeadCamera() {
     // Initialize the flag to false
     objectCornersDetected = false;
     detectionCounter = 0;
-    maxDetections = 20;
+    maxDetections = 10;
 
     // Initialize the TF listener
     tfListener = new tf::TransformListener();
@@ -26,7 +26,8 @@ void HeadCamera::rgbCallback(const sensor_msgs::ImageConstPtr& msg_rgb) {
 
         // Check if the corners have been detected less than maxDetections times
         if (detectionCounter < maxDetections) {
-            findAndPublishBlueObjectCorners(rgb_image);
+            findAndPublishBlueObjectCenter(rgb_image);
+            findAndPublishRedObjectCenter(rgb_image);
             detectionCounter++;
         }
         // If we have reached maxDetections, you can stop further detections
@@ -42,50 +43,8 @@ void HeadCamera::depthCallback(const sensor_msgs::PointCloud2ConstPtr& msg_depth
     pcl::PCLPointCloud2 pcl_pc2;
     pcl_conversions::toPCL(*msg_depth, pcl_pc2);
     pcl::fromPCLPointCloud2(pcl_pc2, cloud_);
-
-    // If object corners have been detected and we have point cloud data, retrieve the 3D point
-    if (objectCornersDetected) {
-        // Clear the vector to remove any previous data
-        objectPoints.clear();
-        // Check if objectCorners contains at least 4 points
-        if (objectCorners.size() >= 4) {
-            for (int i = 2; i < 4; i++) {  // Iterate over objectCorners [2] and [3]
-                cv::Point corner = objectCorners[i];
-
-                // Ensure the point is within the image boundaries
-                if (corner.x >= 0 && corner.x < cloud_.width && corner.y >= 0 && corner.y < cloud_.height) {
-                    pcl::PointXYZRGB point = cloud_.at(corner.x, corner.y);
-
-                    // Now, 'point' contains the 3D coordinates of the detected corner in the camera frame
-                    ROS_INFO("Detected 3D point (camera frame): x=%f, y=%f, z=%f", point.x, point.y, point.z);
-
-                    // Transform the point to the base_link frame
-                    transformPointToBaseLinkFrame(point);
-
-                    // 'point' now contains the 3D coordinates of the detected corner in the base_link frame
-                    ROS_INFO("Detected 3D point (base_link frame): x=%f, y=%f, z=%f", point.x, point.y, point.z);
-
-                    objectPoints.push_back(point);  // Store the point in the vector
-                }
-            }
-            // Debug output to see how many points were added to objectPoints
-            ROS_INFO("Number of points added to objectPoints: %zu", objectPoints.size());
-
-
-            if (objectPoints.size() == 2) {
-                // Calculate the midpoint in the base_link frame
-                pcl::PointXYZRGB midpoint;
-                midpoint.x = (objectPoints[0].x + objectPoints[1].x) / 2.0;
-                midpoint.y = (objectPoints[0].y + objectPoints[1].y) / 2.0;
-                midpoint.z = (objectPoints[0].z + objectPoints[1].z) / 2.0;
-
-                // Now, 'midpoint' contains the 3D coordinates of the midpoint in the base_link frame
-                ROS_INFO("Midpoint between object corners [2] and [3] (base_link frame): x=%f, y=%f, z=%f", midpoint.x, midpoint.y, midpoint.z);
-            }
-        }
-    }
 }
-void HeadCamera::findAndPublishBlueObjectCorners(cv::Mat& image) {
+void HeadCamera::findAndPublishBlueObjectCenter(cv::Mat& image) {
     // Filter for blue color
     cv::Mat hsv;
     cv::cvtColor(image, hsv, cv::COLOR_BGR2HSV);
@@ -106,25 +65,88 @@ void HeadCamera::findAndPublishBlueObjectCorners(cv::Mat& image) {
             }
         }
 
-        // Calculate the bounding box and corners of the largest contour
-        cv::Rect boundingBox = cv::boundingRect(largestContour);
-        //std::vector<cv::Point> objectCorners(4);
-        objectCorners.resize(4);
-        objectCorners[0] = boundingBox.tl();
-        objectCorners[1] = cv::Point(boundingBox.tl().x + boundingBox.width, boundingBox.tl().y);
-        objectCorners[2] = cv::Point(boundingBox.tl().x, boundingBox.tl().y + boundingBox.height);
-        objectCorners[3] = boundingBox.br();
+        // Fit a bounding rectangle or polygon around the largest contour
+        cv::RotatedRect boundingBox = cv::minAreaRect(largestContour);
 
-        // Draw the corners on the image
-        for (const auto& corner : objectCorners) {
-            cv::circle(image, corner, 5, cv::Scalar(0, 255, 0), -1);
-        }
+        // Find the centroid of the bounding box
+        cv::Point2f centroid = boundingBox.center;
 
-        cv::imshow("Detected Corners", image);
+        // Draw the bounding box and centroid on the image
+        cv::Point2f vertices[4];
+        boundingBox.points(vertices);
+        for (int i = 0; i < 4; i++)
+            cv::line(image, vertices[i], vertices[(i+1)%4], cv::Scalar(0, 255, 0));
+        cv::circle(image, centroid, 5, cv::Scalar(0, 0, 255), -1);
+
+        cv::imshow("Detected Object", image);
         cv::waitKey(1);
-        
+
+        // Use the centroid to find the corresponding 3D point
+        if (centroid.x >= 0 && centroid.x < cloud_.width && centroid.y >= 0 && centroid.y < cloud_.height) {
+            detectedPoint = cloud_.at(centroid.x, centroid.y);
+
+            // Transform the point to the base_link frame
+            transformPointToBaseLinkFrame(detectedPoint);
+
+            // 'point' now contains the 3D coordinates of the detected center in the base_link frame
+            ROS_INFO("Detected 3D center (base_link frame): x=%f, y=%f, z=%f", detectedPoint.x, detectedPoint.y, detectedPoint.z);
+        }
     }
 }
+
+void HeadCamera::findAndPublishRedObjectCenter(cv::Mat& image) {
+    // Filter for red color
+    cv::Mat hsv;
+    cv::cvtColor(image, hsv, cv::COLOR_BGR2HSV);
+    cv::Scalar lower_red1(0, 100, 100);
+    cv::Scalar upper_red1(10, 255, 255);
+    cv::Scalar lower_red2(160, 100, 100);
+    cv::Scalar upper_red2(180, 255, 255);
+    cv::Mat mask1, mask2;
+    cv::inRange(hsv, lower_red1, upper_red1, mask1);
+    cv::inRange(hsv, lower_red2, upper_red2, mask2);
+    cv::Mat mask = mask1 | mask2;
+
+    // Find contours of the red object
+    std::vector<std::vector<cv::Point>> contours;
+    cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+    
+    if (!contours.empty()) {
+        // Find the largest contour
+        auto largestContour = std::max_element(contours.begin(), contours.end(),
+                                                [](const std::vector<cv::Point>& c1, const std::vector<cv::Point>& c2) {
+                                                    return cv::contourArea(c1) < cv::contourArea(c2);
+                                                });
+
+        // Fit a bounding rectangle or polygon around the largest contour
+        cv::RotatedRect boundingBox = cv::minAreaRect(*largestContour);
+
+        // Find the centroid of the bounding box
+        cv::Point2f centroid = boundingBox.center;
+
+        // Draw the bounding box and centroid on the image
+        cv::Point2f vertices[4];
+        boundingBox.points(vertices);
+        for (int i = 0; i < 4; i++)
+            cv::line(image, vertices[i], vertices[(i+1)%4], cv::Scalar(0, 255, 0));
+        cv::circle(image, centroid, 5, cv::Scalar(0, 255, 0), -1);  // BGR color (0, 255, 0) represents green
+
+        cv::imshow("Detected Red Object", image);
+        cv::waitKey(1);
+
+        // Use the centroid to find the corresponding 3D point
+        if (centroid.x >= 0 && centroid.x < cloud_.width && centroid.y >= 0 && centroid.y < cloud_.height) {
+            detectedRedPoint = cloud_.at(centroid.x, centroid.y);
+
+            // Transform the point to the base_link frame
+            transformPointToBaseLinkFrame(detectedRedPoint);
+
+            // 'point' now contains the 3D coordinates of the detected center in the base_link frame
+            ROS_INFO("Detected 3D center of red object (base_link frame): x=%f, y=%f, z=%f", detectedRedPoint.x, detectedRedPoint.y, detectedRedPoint.z);
+        }
+    }
+}
+
 
 void HeadCamera::transformPointToBaseLinkFrame(pcl::PointXYZRGB& point) {
     tf::StampedTransform transform;
@@ -146,8 +168,60 @@ void HeadCamera::transformPointToBaseLinkFrame(pcl::PointXYZRGB& point) {
         ROS_ERROR("%s", ex.what());
     }
 }
+pcl::PointXYZRGB HeadCamera::getDetectedPoint() const {
+    return detectedPoint;
+}
+pcl::PointXYZRGB HeadCamera::getDetectedRedPoint() const {
+    return detectedRedPoint;
+}
+
+// void HeadCamera::depthCallback(const sensor_msgs::PointCloud2ConstPtr& msg_depth) {
+//     pcl::PCLPointCloud2 pcl_pc2;
+//     pcl_conversions::toPCL(*msg_depth, pcl_pc2);
+//     pcl::fromPCLPointCloud2(pcl_pc2, cloud_);
+
+//     // If object corners have been detected and we have point cloud data, retrieve the 3D point
+//     if (objectCornersDetected) {
+//         // Clear the vector to remove any previous data
+//         objectPoints.clear();
+//         // Check if objectCorners contains at least 4 points
+//         if (objectCorners.size() >= 4) {
+//             for (int i = 2; i < 4; i++) {  // Iterate over objectCorners [2] and [3]
+//                 cv::Point corner = objectCorners[i];
+
+//                 // Ensure the point is within the image boundaries
+//                 if (corner.x >= 0 && corner.x < cloud_.width && corner.y >= 0 && corner.y < cloud_.height) {
+//                     pcl::PointXYZRGB point = cloud_.at(corner.x, corner.y);
+
+//                     // Now, 'point' contains the 3D coordinates of the detected corner in the camera frame
+//                     ROS_INFO("Detected 3D point (camera frame): x=%f, y=%f, z=%f", point.x, point.y, point.z);
+
+//                     // Transform the point to the base_link frame
+//                     transformPointToBaseLinkFrame(point);
+
+//                     // 'point' now contains the 3D coordinates of the detected corner in the base_link frame
+//                     ROS_INFO("Detected 3D point (base_link frame): x=%f, y=%f, z=%f", point.x, point.y, point.z);
+
+//                     objectPoints.push_back(point);  // Store the point in the vector
+//                 }
+//             }
+//             // Debug output to see how many points were added to objectPoints
+//             ROS_INFO("Number of points added to objectPoints: %zu", objectPoints.size());
 
 
+//             if (objectPoints.size() == 2) {
+//                 // Calculate the midpoint in the base_link frame
+//                 pcl::PointXYZRGB midpoint;
+//                 midpoint.x = (objectPoints[0].x + objectPoints[1].x) / 2.0;
+//                 midpoint.y = (objectPoints[0].y + objectPoints[1].y) / 2.0;
+//                 midpoint.z = (objectPoints[0].z + objectPoints[1].z) / 2.0;
+
+//                 // Now, 'midpoint' contains the 3D coordinates of the midpoint in the base_link frame
+//                 ROS_INFO("Midpoint between object corners [2] and [3] (base_link frame): x=%f, y=%f, z=%f", midpoint.x, midpoint.y, midpoint.z);
+//             }
+//         }
+//     }
+// }
 // std::string HeadCamera::detectColor(const sensor_msgs::ImageConstPtr& msg_rgb) {
 //     cv_bridge::CvImagePtr cv_ptr;
 //     try {
