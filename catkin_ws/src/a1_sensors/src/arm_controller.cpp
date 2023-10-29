@@ -32,7 +32,7 @@ void ArmController::separateThread() {
     // Set how farm to turn opposite direction
     double turn_negdistance = 0;
     // Set an extra short distance
-    double shortdist = 0;//0.5;
+    double shortdist = 0;
     // Set the offset of the gripper 
     double gripper_offset = 0.1;
     // Set the offset of the gripper link
@@ -67,8 +67,10 @@ void ArmController::separateThread() {
 
 
         // MOVE ARM TO START POSE
+        ROS_INFO("Moving the robot arm to the start pose...");
         move_arm_->setNamedTarget("start");
         moveArm();
+        ROS_INFO("Robot arm is in the start pose.");
 
         // ******************** MOVE BLUE CUBE *********************** //
 
@@ -96,6 +98,7 @@ void ArmController::separateThread() {
         moveArm();
 
         // MOVE DOWN ONTO BOX
+        ROS_INFO("Moving the robot arm down to pick up the blue cube...");
         // Set the target pose
         target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
         // Set the target pose as the goal
@@ -106,23 +109,24 @@ void ArmController::separateThread() {
         // CLOSE THE GRIPPER TO PICK UP BOX
         gripperControl("close");
 
-
         // MOVE ARM BACK UP
         target_pose.pose.position.z = target_pose.pose.position.z + gripper_offset;  // Set the desired position (z)
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
+        ROS_INFO("Blue Cube has successfully been grasped!");
 
 
         //MOVE ARM TO SEPERATE LOCATION
         target_pose.pose.position.x = target_pose.pose.position.x + 0.075;
-        target_pose.pose.position.y = target_pose.pose.position.y + 0.1;
+        target_pose.pose.position.y = target_pose.pose.position.y - 0.3;
         target_pose.pose.position.z = target_pose.pose.position.z;  // Set the desired position (z)
 
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
 
+        ROS_INFO("Placing Blue Cube...");
         // MOVE ARM DOWN
         target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
         // Set the target pose as the goal
@@ -137,6 +141,7 @@ void ArmController::separateThread() {
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
+        ROS_INFO("Blue Cube has Been Placed!");
 
         // ****************************** MOVE RED CYLINDER ********************** //
 
@@ -149,7 +154,8 @@ void ArmController::separateThread() {
         // Move the arm
         moveArm();
 
-        // MOVE DOWN ONTO BOX
+        // MOVE DOWN ONTO CYLINDER
+        ROS_INFO("Moving the robot arm down to pick up the red cylinder...");
         // Set the target pose
         target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
         // Set the target pose as the goal
@@ -157,7 +163,7 @@ void ArmController::separateThread() {
         moveArm();
 
 
-        // CLOSE THE GRIPPER TO PICK UP BOX
+        // CLOSE THE GRIPPER TO PICK UP CYLINDER
         gripperControl("close");
 
 
@@ -166,16 +172,18 @@ void ArmController::separateThread() {
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
+        ROS_INFO("Red Cylinder has successfully been grasped!");
 
 
         //MOVE ARM TO SEPERATE LOCATION
         target_pose.pose.position.x = target_pose.pose.position.x + 0.0;
-        target_pose.pose.position.y = target_pose.pose.position.y + 0.3;
+        target_pose.pose.position.y = target_pose.pose.position.y + 0.6;
         target_pose.pose.position.z = target_pose.pose.position.z;  // Set the desired position (z)
 
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
+        ROS_INFO("Placing Red Cylinder...");
 
         // MOVE ARM DOWN
         target_pose.pose.position.z = target_pose.pose.position.z - gripper_offset;  // Set the desired position (z)
@@ -191,6 +199,7 @@ void ArmController::separateThread() {
         // Set the target pose as the goal
         move_arm_->setPoseTarget(target_pose);
         moveArm();
+        ROS_INFO("Red Cylinder has Been Placed!");
     }
 }
 

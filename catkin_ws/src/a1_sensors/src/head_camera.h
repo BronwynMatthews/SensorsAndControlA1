@@ -38,4 +38,4 @@ protected:
   pcl::PointXYZRGB detectedCylinderPoint;
 };
 
-#endif  HEAD_CAMERA_H
+#endif // HEAD_CAMERA_H

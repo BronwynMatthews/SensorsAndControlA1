@@ -106,7 +106,7 @@ void HeadCamera::findAndPublishBlueObjectCenter(cv::Mat& image) {
             transformPointToBaseLinkFrame(detectedCubePoint);
 
             // 'point' now contains the 3D coordinates of the detected center in the base_link frame
-            ROS_INFO("Detected 3D center (base_link frame): x=%f, y=%f, z=%f", detectedCubePoint.x, detectedCubePoint.y, detectedCubePoint.z);
+            ROS_INFO("Detected 3D center of Blue Cube (scan %d): x=%f, y=%f, z=%f", detectionCounter, detectedCubePoint.y, detectedCubePoint.z);
         }
     }
 }
@@ -161,7 +161,7 @@ void HeadCamera::findAndPublishRedObjectCenter(cv::Mat& image) {
             transformPointToBaseLinkFrame(detectedCylinderPoint);
 
             // 'point' now contains the 3D coordinates of the detected center in the base_link frame
-            ROS_INFO("Detected 3D center of red object (base_link frame): x=%f, y=%f, z=%f", detectedCylinderPoint.x, detectedCylinderPoint.y, detectedCylinderPoint.z);
+            ROS_INFO("Detected 3D center of Red Cylinder (scan %d): x=%f, y=%f, z=%f", detectionCounter, detectedCylinderPoint.y, detectedCylinderPoint.z);
         }
     }
 }
