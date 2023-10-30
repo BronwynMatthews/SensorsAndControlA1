@@ -16,17 +16,17 @@ To view our source code, please go to path
 
 src/a1_sensors/src
 
-## Setup Requirements
+# Setup Requirements
 Before running the code, ensure you have the following:
 
-# OS and Software
+## OS and Software
 - Ubuntu 18.04
 - C++
 - ROS Melodic
 - Gazebo
 - fetch_gazebo_demo
 
-# ROS Packages and C++ Libraries
+## ROS Packages and C++ Libraries
 - sensor_msgs
 - std_msgs
 - cv_bridge (OpenCV) 
