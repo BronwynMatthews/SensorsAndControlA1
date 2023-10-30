@@ -1,9 +1,9 @@
 <launch>
   <!-- Launch Gazebo simulation -->
-  <include file="$(find fetch_gazebo)/launch/simulation.launch">
+  <include file="$(find fetch_gazebo)/launch/simple_grasp.launch">
   </include>
 
-  <!-- Launch MoveIt MoveGroup node -->
+  <!-- Launch MoveIt MoveGroup -->
   <include file="$(find fetch_moveit_config)/launch/move_group.launch">
     <!-- Specify any arguments or parameters if needed -->
   </include>
