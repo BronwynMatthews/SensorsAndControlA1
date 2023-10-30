@@ -11,31 +11,50 @@ The contributions of the project was split up evenly. Here are the general areas
 - **Bronwyn (33%)**: Created the MoveIt package, initialised the robot poses in the MoveIt package, Intigrated the MoveIt package into the project to control the arm, Implimented the logic for the arm control including the pick and place and implimented safety considerations to ensure safe robot movements. 
 - **Sophie (33%)**: Set up the GitHub repository, Created the ROS workspace, managed version control of the system, created the workspace and models, ensured proper organisation of project files and directories
 
-## Setup Requirements
+# Source Code
+To view our source code, please go to path 
 
+src/a1_sensors/src
+
+## Setup Requirements
 Before running the code, ensure you have the following:
 
-- ROS (Robot Operating System) installed on your system.
-- Required ROS packages installed.
-- C++ libraries and dependencies.
-- Fetch robot hardware or a compatible simulator.
+# OS and Software
+- Ubuntu 18.04
+- C++
+- ROS Melodic
+- Gazebo
+- fetch_gazebo_demo
 
-## ROS Packages and C++ Libraries
-
-This project relies on the following ROS packages and C++ libraries:
-
-- [moveit](https://moveit.ros.org/): A library for motion planning and manipulation.
-- [OpenCV](https://opencv.org/): An open-source computer vision library.
-- [PCL (Point Cloud Library)](https://pointclouds.org/): Used for point cloud processing.
-- [tf](http://wiki.ros.org/tf): A package for working with coordinate transforms.
+# ROS Packages and C++ Libraries
+- sensor_msgs
+- std_msgs
+- cv_bridge (OpenCV) 
+- pcl_ros (PCL)
+- tf
+- moveit_core (MoveIt)
+- moveit_planning_ros_interface (MoveIt)
 
 Please make sure these packages and libraries are installed correctly.
+
 
 ## Compiling and Running the Code
 
 1. Clone the project repository to your ROS workspace.
+```git clone <> /path/to/catkin_ws/src/```
 2. Build the project using `catkin_make`:
 
-   ```bash
+   ```
    cd your_ros_workspace
-   catkin_make
+   catkin_make```
+
+3. Source the environment. Note this need to be done each time a terminal is open
+```source devel/setup.bash```
+
+4. Open the gazebo world file (Note this world file is not included in this repository)
+```roslaunch fetch_gazebo fetch_sim.launch```
+5. Open a new terminal, locate to your catkin workspace and source the environment from step 3
+6. Run the MoveIt group launch file
+```roslaunch fetch_moveit_config move_group.launch
+7. Launch the program 
+```rosrun a1_sensors robotmain```
