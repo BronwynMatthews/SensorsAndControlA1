@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is focused on implementing a robot grasping system using the Fetch robot equipped with RGB-D head camera and arm control. The robot is designed to pick up and manipulate objects in its environment to simulate a sorting task.
+This project is focused on implementing a robot grasping system using the Fetch robot equipped with RGB-D head camera and arm control for sorting different coloured and shaped objects. The robot is designed to pick up and manipulate objects in its environment to simulate a sorting task.
 
 ## Individual Contributions
 
@@ -15,6 +15,27 @@ The contributions of the project was split up evenly. Here are the general areas
 To view our source code, please locate to following directory 
 
 ```catkin_ws/src/a1_sensors/src```
+
+### Code Structure
+This codebase is part of a Pick and Place grasping project designed for sorting colored objects using a robot arm. The project involves various components, each contributing to the successful execution of the task.
+#### Main (`main.cpp`)
+- The main entry point for the program.
+- Initializes the ROS (Robot Operating System) node and creates an instance of the `ArmController` class.
+- Spawns a separate thread for robot control.
+- Handles the high-level logic for controlling the robot.
+
+#### Arm Controller (`arm_controller.cpp` and `arm_controller.h`)
+- Manages the robot arm's movement and gripper control.
+- Interfaces with MoveIt for motion planning and execution.
+- Publishes commands to the arm and gripper controllers.
+- Includes methods for controlling the robot base's movement (e.g., moving forward and turning).
+
+#### Head Camera (`head_camera.cpp` and `head_camera.h`)
+- Handles the robot's head camera, capturing RGB and depth images.
+- Detects colored objects (blue cubes and red cylinders) in the images.
+- Computes the 3D coordinates of the detected object centers.
+- Provides transformation methods to convert 3D coordinates to the base_link frame.
+- Publishes the detected object information.
 
 # Setup Requirements
 Before running the code, ensure you have the following:
@@ -39,10 +60,11 @@ Please make sure these packages and libraries are installed correctly.
 
 
 ## Compiling and Running the Code
+Note that you will only be able to run the code if you have the fetch gazebo folder in you workspace
 
 1. Clone the project repository to your ROS workspace.
 ```
-git clone <> /path/to/catkin_ws/src/
+git clone <https://github.com/BronwynMatthews/SensorsAndControlA1.git> /path/to/catkin_ws/src/
 ```
 2. Build the project using `catkin_make`:
 
