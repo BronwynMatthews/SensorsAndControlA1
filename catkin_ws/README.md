@@ -41,20 +41,25 @@ Please make sure these packages and libraries are installed correctly.
 ## Compiling and Running the Code
 
 1. Clone the project repository to your ROS workspace.
-```git clone <> /path/to/catkin_ws/src/```
+```
+git clone <> /path/to/catkin_ws/src/
 2. Build the project using `catkin_make`:
 
    ```
    cd your_ros_workspace
-   catkin_make```
+   catkin_make
 
 3. Source the environment. Note this need to be done each time a terminal is open
-```source devel/setup.bash```
+```
+source devel/setup.bash
 
 4. Open the gazebo world file (Note this world file is not included in this repository)
-```roslaunch fetch_gazebo fetch_sim.launch```
+```
+roslaunch fetch_gazebo fetch_sim.launch
 5. Open a new terminal, locate to your catkin workspace and source the environment from step 3
 6. Run the MoveIt group launch file
-```roslaunch fetch_moveit_config move_group.launch
+```
+roslaunch fetch_moveit_config move_group.launch
 7. Launch the program 
-```rosrun a1_sensors robotmain```
+```
+rosrun a1_sensors robotmain
