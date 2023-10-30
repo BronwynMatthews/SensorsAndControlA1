@@ -9,7 +9,7 @@ This project is focused on implementing a robot grasping system using the Fetch 
 The contributions of the project was split up evenly. Here are the general areas that each memeber worked on.
 - **Jack (34%)**: Worked on object detection and locating a center point for cube and cylinder, transforming detected point from head camera optimal frame to base_link frame, implimented logic for opening and closing gripper
 - **Bronwyn (33%)**: Created the MoveIt package, initialised the robot poses in the MoveIt package, Intigrated the MoveIt package into the project to control the arm, Implimented the logic for the arm control including the pick and place and implimented safety considerations to ensure safe robot movements. 
-- **Sophie (33%)**: Set up the GitHub repository, Created the ROS workspace, managed version control of the system, created the workspace and models, ensured proper organisation of project files and directories
+- **Sophie (33%)**: Created the ROS workspace, managed version control of the system, created the workspace and models, ensured proper organisation of project files and directories
 
 ## Source Code
 To view our source code, please locate to following directory 
